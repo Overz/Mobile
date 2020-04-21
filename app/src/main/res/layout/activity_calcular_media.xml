@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context=".view.CalcularMedia">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/calcularMedia"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="45sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="@string/nomeAluno" />
+
+    <EditText
+        android:id="@+id/editNome_CalcularMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/hint_nomeAluno"
+        android:hint="@string/hint_nomeAluno"
+        android:inputType="text" />
+
+    <TextView
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/np1" />
+
+    <EditText
+        android:id="@+id/editNp1_CalcularMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/hint_np1"
+        android:hint="@string/hint_np1"
+        android:inputType="number" />
+
+    <TextView
+        android:paddingTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/np2" />
+
+    <EditText
+        android:id="@+id/editNp2_CalcularMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints="@string/hint_np2"
+        android:hint="@string/hint_np2"
+        android:inputType="number" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:id="@+id/btnVoltar_CalcularMedia"
+            style="@style/btnVoltar" />
+
+        <Button
+            android:id="@+id/btnCalcular_CalcularMedia"
+            style="@style/btnCalcular" />
+
+        <Button
+            android:id="@+id/btnLimparDados_CalcularMedia"
+            style="@style/btnLimparDados" />
+
+    </LinearLayout>
+
+    <!-- resultados -->
+    <TextView
+        android:id="@+id/tvResultadoFinal_CalcularMedia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp" />
+
+
+</LinearLayout>

@@ -1,0 +1,80 @@
+<resources>
+    <string name="app_name">Atividades</string>
+    <string name="activityCalcularMedia">Calcular Média</string>
+    <string name="activityPJ">Preço Justo</string>
+    <string name="activityPMuitoJusto">Preço Muito Justo</string>
+    <string name="activityAutonomia">Autonomia Total</string>
+    <string name="activityCalculadora">Calculadora Noob</string>
+
+    <string name="bemVindo">Bem Vindo!</string>
+    <string name="calcularMedia">Calcular Média</string>
+    <string name="precoJusto">Preço Justo</string>
+    <string name="autonomia">Autonomia</string>
+    <string name="calculadora">Calculadora</string>
+    <string name="precoMuitoJusto">Muito Justo</string>
+
+    <!-- Activity Calcular Média -->
+    <string name="nomeAluno">Nome do Aluno</string>
+    <string name="np1">Nota 1</string>
+    <string name="np2">Nota 2</string>
+
+    <string name="aluno">Aluno</string>
+    <string name="media">Média</string>
+    <string name="situacao">Situação</string>
+
+    <string name="hint_nomeAluno">Digíte o Nome do Aluno</string>
+    <string name="hint_np1">Digíte a Nota 01</string>
+    <string name="hint_np2">Digíte a Nota 02</string>
+
+    <string name="aprovado">Aprovado</string>
+    <string name="reprovado">Reprovado</string>
+    <!-- Activity Calcular Média -->
+
+    <!-- Activity Autonomia -->
+    <string name="modeloCarro">Modelo do Carro</string>
+    <string name="hint_modeloCarro">Digíte o Modelo do Carro</string>
+    <string name="kmPercorrido">Quilometragem</string>
+    <string name="hint_km">Digíte Km Percorrido</string>
+    <string name="combustivel">Uso de combustivel</string>
+    <string name="hint_combustivel">Combustivel Gasto(Litro\'s)</string>
+    <string name="frota">Consumo Médio da Frota: %1$s</string>
+    <string name="carros">%1$s - %2$s Km/L \n</string>
+    <!-- Activity Autonomia -->
+
+    <!-- Activity Preço Justo -->
+    <string name="nomeProduto">Produto</string>
+    <string name="hint_nomeProduto">Digíte o Nome do Produto</string>
+    <string name="valor">Valor</string>
+    <string name="hint_valor">Digíte o Valor do Produto</string>
+    <string name="numeroParcela">Qntd. Parcelas</string>
+    <string name="juros">Juros(%)</string>
+    <string name="hint_juros">0</string>
+
+    <string name="valorInicial">Valor Inicial: %1$s</string>
+    <string name="valorParcela">Valor da Parcela: %1$s</string>
+    <string name="totalCompra">Valor Total: %1$s</string>
+    <string name="totalComJuros">Total de Juros: %1$s</string>
+    <!-- Activity Preço Justo -->
+
+    <!-- Activity Preço MUITO Justo -->
+    <string name="checkBox">Com Entrada</string>
+    <!-- Activity Preço MUITO Justo -->
+
+    <!-- Activity Calculadora -->
+    <string name="adicao">+</string>
+    <string name="subtracao">-</string>
+    <string name="dividisao">/</string>
+    <string name="multiplicacao">x</string>
+    <string name="resultadoOperacao">%1$s %2$s %3$s = %4$s \n</string>
+    <!-- Activity Preço Justo -->
+
+    <string name="voltar">Voltar</string>
+    <string name="voltando">Voltando</string>
+    <string name="calcular">Calcular</string>
+    <string name="limparDados">Limpar Dados</string>
+    <string name="limpando" type="id">Limpando</string>
+
+    <string name="erro">Erro %1$s</string>
+    <string name="obrigatorio">%1$s Incompleto ou Obrigatorio!</string>
+
+</resources>
