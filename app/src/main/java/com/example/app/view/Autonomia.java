@@ -2,7 +2,6 @@ package com.example.app.view;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -34,8 +33,8 @@ public class Autonomia extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autonomia);
-        controller = new AutonomiaController(this);
         this.initialize();
+        controller = new AutonomiaController(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)

@@ -1,7 +1,6 @@
 package com.example.app.controller;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Build;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,6 +15,7 @@ import com.example.app.model.vo.CarroVO;
 import com.example.app.util.MetodoAuxiliar;
 import com.example.app.view.Autonomia;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,8 +48,9 @@ public class AutonomiaController {
 //            String resIndividual = "";
             Double frota = 0.0;
             frota += CarroBO.calcularMediaFrota(c); // Media Total da Frota
+            DecimalFormat df = new DecimalFormat("###,##");
 
-            activity.getTvConsumoFrota().setText(activity.getString(R.string.frota, frota.toString()));
+            activity.getTvConsumoFrota().setText(activity.getString(R.string.frota, df.format(frota)));
             activity.getTvConsumoFrota().setTextSize(20);
             activity.getTvConsumoFrota().setVisibility(View.VISIBLE);
 
