@@ -20,3 +20,5 @@
 *.tar.gz
 *.rar
 /.idea/
+/app/src/androidTest/java/com/example/app/
+/app/src/test/java/com/example/app/
