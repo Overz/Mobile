@@ -65,7 +65,7 @@ public class CarroVO {
     @Override
     public String toString() {
         return "Modelo: " + this.modelo +
-                " KM: " + this.km +
-                " Combustivel: " + this.combustivel;
+                " - KM: " + this.km +
+                " - Combustivel: " + this.combustivel;
     }
 }

@@ -15,6 +15,8 @@ import com.example.app.model.vo.CarroVO;
 import com.example.app.util.MetodoAuxiliar;
 import com.example.app.view.Autonomia;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +50,10 @@ public class AutonomiaController {
 //            String resIndividual = "";
             Double frota = 0.0;
             frota += CarroBO.calcularMediaFrota(c); // Media Total da Frota
-            DecimalFormat df = new DecimalFormat("###,##");
+            DecimalFormat df = new DecimalFormat();
+            String frotaFormatted = df.format(frota);
 
-            activity.getTvConsumoFrota().setText(activity.getString(R.string.frota, df.format(frota)));
+            activity.getTvConsumoFrota().setText(activity.getString(R.string.frota, frotaFormatted));
             activity.getTvConsumoFrota().setTextSize(20);
             activity.getTvConsumoFrota().setVisibility(View.VISIBLE);
 
@@ -58,7 +61,7 @@ public class AutonomiaController {
 //            resIndividual += activity.getString(R.string.carros, c.getModelo(), individual.toString());
 //            this.addResultadoDinamico(resIndividual);
 
-           this.cadastrarAction();
+            this.cadastrarAction();
 
             Toast.makeText(activity, "Resultado carregado", Toast.LENGTH_SHORT).show();
             MetodoAuxiliar.hideKeyboard(activity);
@@ -79,6 +82,35 @@ public class AutonomiaController {
         );
         activity.getListView().setAdapter(adapterCarros);
         adapterCarros.add(new CarroVO("New FIESTA", 10, 10.0));
+
+        this.addClickLongoListView();
+        this.addClickCurtoListView();
+    }
+
+    private void addClickLongoListView() {
+        activity.getListView().setOnItemLongClickListener(
+                (parent, view, position, id) -> {
+                    this.c = adapterCarros.getItem(position);
+                    if (this.c != null) {
+                        this.confirmarExclusaoAction(this.c);
+                    } else {
+                        Toast.makeText(activity, "Erro ao Tentar Excluir da Lista.", Toast.LENGTH_SHORT).show();
+                    }
+                    return false;
+                }
+        );
+    }
+
+    private void addClickCurtoListView() {
+        activity.getListView().setOnItemClickListener((parent, view, position, id) -> {
+            this.c = adapterCarros.getItem(position);
+            if (this.c != null) {
+                popularForm(this.c);
+            } else {
+                Toast.makeText(activity, "Erro ao Popular o Formulario.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void cadastrarAction() {
@@ -86,28 +118,36 @@ public class AutonomiaController {
         this.limparForm();
     }
 
-    private void confirmarExclusaoAction(final CarroVO c) {
+    private void confirmarExclusaoAction(@NotNull final CarroVO c) {
         AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
-        alerta.setTitle("Excluir Carro");
-        alerta.setMessage("Deseja Realmente Excluir o Carro: '" + c.getModelo() + "' Desta Lista?");
+        alerta.setTitle("Excluindo Carro");
+        alerta.setMessage("Deseja Realmente Excluir: '" + c.getModelo() + "' Desta Lista?");
         alerta.setIcon(android.R.drawable.ic_menu_delete);
-        alerta.setNegativeButton("Não", null);
+        alerta.setNegativeButton("Não", (dialog, which) -> this.c = null);
         // Deletar
-        alerta.setPositiveButton("Sim", (dialog, which) -> adapterCarros.remove(c));
+        alerta.setPositiveButton("Sim", (dialog, which) -> {
+            adapterCarros.remove(c);
+            this.c = null;
+        });
+        alerta.show();
     }
 
     private void editarAction(CarroVO newCarro) {
-        c.setModelo(newCarro.getModelo());
-        c.setKm(newCarro.getKm());
-        c.setCombustivel(newCarro.getCombustivel());
+        this.c.setModelo(newCarro.getModelo());
+        this.c.setKm(newCarro.getKm());
+        this.c.setCombustivel(newCarro.getCombustivel());
         adapterCarros.notifyDataSetChanged();
-        c = null;
+        this.c = null;
     }
 
     private void popularForm(CarroVO c) {
-        activity.getEditModelo().setText(c.getModelo());
-        activity.getEditKm().setText(c.getKm());
-        activity.getEditCombustivel().setText(String.valueOf(c.getCombustivel()));
+        if (this.c != null) {
+            activity.getEditModelo().setText(c.getModelo());
+            activity.getEditKm().setText(c.getKm());
+            activity.getEditCombustivel().setText(String.valueOf(c.getCombustivel()));
+        } else {
+            Toast.makeText(activity, "Erro ao Tentar popular o Formulario", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean verificarCampos(CarroVO c) {
