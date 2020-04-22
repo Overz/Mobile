@@ -55,9 +55,9 @@ public class Autonomia extends AppCompatActivity {
     private void onClickListener(){
         btnVoltar.setOnClickListener(v -> controller.voltarAction());
 
-        btnCalcular.setOnClickListener(v -> controller.calcularAction());
+        btnCalcular.setOnClickListener(v -> controller.salvarAction());
 
-        btnLimparDados.setOnClickListener(v -> controller.limparResultados());
+        btnLimparDados.setOnClickListener(v -> controller.limparResultadosAction());
     }
 
     public EditText getEditModelo() {

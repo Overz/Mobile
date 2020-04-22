@@ -29,11 +29,34 @@ public class AutonomiaController {
 
     private CarroVO c;
 
+    /**
+     * Construtor + inicializa a Configuração do ArrayList e ArrayAdapter
+     * @param autonomia Activity
+     */
     public AutonomiaController(Autonomia autonomia) {
         this.activity = autonomia;
         this.configListView();
     }
 
+    /**
+     * Caso o usuário clique em um objeto no List View...
+     * e o objeto Carro estiver vazio, ele cadastra.
+     * Se não, ele edita
+     */
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public void salvarAction() {
+        if (this.c == null) {
+            this.calcular();
+        } else {
+            this.editar(getResultadoForm());
+        }
+        this.limparForm();
+    }
+
+    /**
+     * Preenche o objeto com os valores digitados na tela
+     * @return CarroVO
+     */
     private CarroVO getResultadoForm() {
         c.setModelo(activity.getEditModelo().getText().toString());
         c.setKm(activity.getEditKm().getText().toString());
@@ -41,8 +64,11 @@ public class AutonomiaController {
         return c;
     }
 
+    /**
+     * Main Method
+     */
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    public void calcularAction() {
+    private void calcular() {
         c = new CarroVO();
 
         if (this.verificarCampos(this.getResultadoForm())) {
@@ -61,7 +87,7 @@ public class AutonomiaController {
 //            resIndividual += activity.getString(R.string.carros, c.getModelo(), individual.toString());
 //            this.addResultadoDinamico(resIndividual);
 
-            this.cadastrarAction();
+            this.cadastrar();
 
             Toast.makeText(activity, "Resultado carregado", Toast.LENGTH_SHORT).show();
             MetodoAuxiliar.hideKeyboard(activity);
@@ -72,13 +98,16 @@ public class AutonomiaController {
         }
     }
 
+    /**
+     * Configuração do ArrayList e ArrayAdapter
+     */
     private void configListView() {
         listaCarros = new ArrayList<>();
         listaCarros.add(new CarroVO("Golf", 0, 0.0));
         adapterCarros = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_list_item_1,
-                new ArrayList<>()
+                listaCarros
         );
         activity.getListView().setAdapter(adapterCarros);
         adapterCarros.add(new CarroVO("New FIESTA", 10, 10.0));
@@ -87,6 +116,9 @@ public class AutonomiaController {
         this.addClickCurtoListView();
     }
 
+    /**
+     * Aciona a opção para Confirmar Exclusão na posição selecionada, abrindo uma tela de confirmação
+     */
     private void addClickLongoListView() {
         activity.getListView().setOnItemLongClickListener(
                 (parent, view, position, id) -> {
@@ -96,28 +128,42 @@ public class AutonomiaController {
                     } else {
                         Toast.makeText(activity, "Erro ao Tentar Excluir da Lista.", Toast.LENGTH_SHORT).show();
                     }
-                    return false;
+                    return true;
                 }
         );
     }
 
+    /**
+     * Popula o formulario na tela para edição
+     */
     private void addClickCurtoListView() {
         activity.getListView().setOnItemClickListener((parent, view, position, id) -> {
             this.c = adapterCarros.getItem(position);
             if (this.c != null) {
-                popularForm(this.c);
+                AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
+                alerta.setTitle("Carro");
+                alerta.setMessage(this.c.toString());
+                alerta.setNegativeButton("Fechar", (dialog, which) -> this.c = null);
+                alerta.setPositiveButton("Editar", (dialog, which) -> this.popularForm(this.c));
+                alerta.show();
             } else {
                 Toast.makeText(activity, "Erro ao Popular o Formulario.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
-    private void cadastrarAction() {
+    /**
+     * Cadastra no ArrayAdapter os Valores digitados no Formulario da Tela
+     */
+    private void cadastrar() {
         adapterCarros.add(getResultadoForm());
         this.limparForm();
     }
 
+    /**
+     * Confirguração para possibilitar Confirmação de Exclusão
+     * @param c CarroVO
+     */
     private void confirmarExclusaoAction(@NotNull final CarroVO c) {
         AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
         alerta.setTitle("Excluindo Carro");
@@ -132,7 +178,11 @@ public class AutonomiaController {
         alerta.show();
     }
 
-    private void editarAction(CarroVO newCarro) {
+    /**
+     * Preenche o formulario com o valor selecionado no ListView, e altera o Dataset caso editado.
+     * @param newCarro CarroVO
+     */
+    private void editar(@NotNull CarroVO newCarro) {
         this.c.setModelo(newCarro.getModelo());
         this.c.setKm(newCarro.getKm());
         this.c.setCombustivel(newCarro.getCombustivel());
@@ -140,16 +190,25 @@ public class AutonomiaController {
         this.c = null;
     }
 
-    private void popularForm(CarroVO c) {
-        if (this.c != null) {
-            activity.getEditModelo().setText(c.getModelo());
-            activity.getEditKm().setText(c.getKm());
-            activity.getEditCombustivel().setText(String.valueOf(c.getCombustivel()));
+    /**
+     * Popula o formulario com o valor selecionado
+     * @param carro CarroVO
+     */
+    private void popularForm(CarroVO carro) {
+        if (carro != null) {
+            activity.getEditModelo().setText(carro.getModelo());
+            activity.getEditKm().setText(String.valueOf(carro.getKm()));
+            activity.getEditCombustivel().setText(String.valueOf(carro.getCombustivel()));
         } else {
             Toast.makeText(activity, "Erro ao Tentar popular o Formulario", Toast.LENGTH_SHORT).show();
         }
     }
 
+    /**
+     * Verifica os Campos digitados
+     * @param c CarroVO
+     * @return true/false
+     */
     private boolean verificarCampos(CarroVO c) {
         if (!CarroBO.verificarModelo(c)) {
             activity.getEditModelo().setError(activity.getString(R.string.erro, "Campo Modelo Vazio"));
@@ -181,6 +240,9 @@ public class AutonomiaController {
 //        activity.getLayoutResultadoFinal().addView(tv);
     }
 
+    /**
+     * Limpa o formulario
+     */
     private void limparForm() {
         this.activity.getEditCombustivel().setText("");
         this.activity.getEditKm().setText("");
@@ -190,7 +252,10 @@ public class AutonomiaController {
         Toast.makeText(activity, activity.getString(R.string.limpando), Toast.LENGTH_SHORT).show();
     }
 
-    public void limparResultados() {
+    /**
+     * Limpa todos os campos
+     */
+    public void limparResultadosAction() {
         this.limparForm();
         this.activity.getTvConsumoFrota().setText("");
 //        this.activity.getLayoutResultadoFinal().removeAllViews();
@@ -198,12 +263,18 @@ public class AutonomiaController {
         Toast.makeText(activity, activity.getString(R.string.limpando), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Remove o foco
+     */
     private void clearFocus() {
         this.activity.getEditCombustivel().clearFocus();
         this.activity.getEditKm().clearFocus();
         this.activity.getEditModelo().clearFocus();
     }
 
+    /**
+     * Fecha a tela exibida
+     */
     public void voltarAction() {
         Toast.makeText(this.activity, R.string.voltando, Toast.LENGTH_SHORT).show();
         this.activity.finish();
