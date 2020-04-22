@@ -25,16 +25,16 @@ public class AutonomiaController {
     private Autonomia activity;
 
     private ArrayAdapter<CarroVO> adapterCarros;
-    private List<CarroVO> listaCarros;
+    private List<CarroVO> listCarros;
 
     private CarroVO c;
 
     /**
      * Construtor + inicializa a Configuração do ArrayList e ArrayAdapter
-     * @param autonomia Activity
+     * @param activity Activity
      */
-    public AutonomiaController(Autonomia autonomia) {
-        this.activity = autonomia;
+    public AutonomiaController(Autonomia activity) {
+        this.activity = activity;
         this.configListView();
     }
 
@@ -71,7 +71,7 @@ public class AutonomiaController {
     private void calcular() {
         c = new CarroVO();
 
-        if (this.verificarCampos(this.getResultadoForm())) {
+        if (this.validarCampos(this.getResultadoForm())) {
 //            Double individual;
 //            String resIndividual = "";
             Double frota = 0.0;
@@ -102,12 +102,12 @@ public class AutonomiaController {
      * Configuração do ArrayList e ArrayAdapter
      */
     private void configListView() {
-        listaCarros = new ArrayList<>();
-        listaCarros.add(new CarroVO("Golf", 0, 0.0));
+        listCarros = new ArrayList<>();
+        listCarros.add(new CarroVO("Golf", 0, 0.0));
         adapterCarros = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_list_item_1,
-                listaCarros
+                listCarros
         );
         activity.getListView().setAdapter(adapterCarros);
         adapterCarros.add(new CarroVO("New FIESTA", 10, 10.0));
@@ -179,7 +179,7 @@ public class AutonomiaController {
     }
 
     /**
-     * Preenche o formulario com o valor selecionado no ListView, e altera o Dataset caso editado.
+     * Preenche o formulario com o valor selecionado no ListView, e altera o Dataset, se editado.
      * @param newCarro CarroVO
      */
     private void editar(@NotNull CarroVO newCarro) {
@@ -209,7 +209,7 @@ public class AutonomiaController {
      * @param c CarroVO
      * @return true/false
      */
-    private boolean verificarCampos(CarroVO c) {
+    private boolean validarCampos(CarroVO c) {
         if (!CarroBO.verificarModelo(c)) {
             activity.getEditModelo().setError(activity.getString(R.string.erro, "Campo Modelo Vazio"));
             activity.getEditModelo().requestFocus();
