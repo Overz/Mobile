@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
 
+import org.jetbrains.annotations.NotNull;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -16,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClick(View view) {
+    public void onClick(@NotNull View view) {
         Intent it;
         switch (view.getId()) {
             case R.id.btnCalcularMedia_Main:
@@ -44,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 it = new Intent(this, MuitoJusto.class);
                 startActivity(it);
                 break;
+            case R.id.btnPaises_Main:
+                it = new Intent(this, Paises.class);
+                startActivity(it);
         }
     }
 }

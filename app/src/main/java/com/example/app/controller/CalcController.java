@@ -131,7 +131,7 @@ public class CalcController {
      *
      * @param c CarroVO
      */
-    private void excluir(final CalculadoraVO c) {
+    private void excluir(@NotNull final CalculadoraVO c) {
         AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
         alerta.setTitle("Excluindo Carro");
         alerta.setMessage("Deseja Realmente Excluir: '" + c.getNp1() + " " + c.getOperador() + " " + c.getNp2() + "' Desta Lista?");
@@ -150,7 +150,7 @@ public class CalcController {
      *
      * @param newCalculadora CalculadoraVO
      */
-    private void editar(CalculadoraVO newCalculadora) {
+    private void editar(@NotNull CalculadoraVO newCalculadora) {
         this.c.setNp1(newCalculadora.getNp1());
         this.c.setNp2(newCalculadora.getNp2());
         adapterCalculadora.notifyDataSetChanged();

@@ -3,9 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="30dp"
-    android:layout_marginRight="30dp"
-    android:gravity="center"
     android:orientation="vertical"
     android:padding="20dp"
     tools:context=".view.MainActivity">
@@ -13,50 +10,76 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-50dp"
         android:layout_marginBottom="15dp"
         android:text="@string/bemVindo"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="55sp" />
 
-    <Button
-        android:id="@+id/btnCalcularMedia_Main"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="15dp"
-        android:onClick="onClick"
-        android:text="@string/calcularMedia" />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnPrecoJusto_Main"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="15dp"
-        android:onClick="onClick"
-        android:text="@string/precoJusto" />
 
-    <Button
-        android:id="@+id/btnAutonomia_Main"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="15dp"
-        android:onClick="onClick"
-        android:text="@string/autonomia" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btnCalculadora_Main"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginBottom="15dp"
-        android:onClick="onClick"
-        android:text="@string/calculadora" />
+            <Button
+                android:id="@+id/btnCalcularMedia_Main"
+                style="@style/mainActivity_Buttons"
+                android:onClick="onClick"
+                android:text="@string/calcularMedia" />
 
-    <Button
-        android:id="@+id/btnMtJusto_Main"
-        android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:onClick="onClick"
-        android:text="@string/precoMuitoJusto" />
+            <Button
+                android:id="@+id/btnPrecoJusto_Main"
+                style="@style/mainActivity_Buttons"
+                android:onClick="onClick"
+                android:text="@string/precoJusto" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPaises_Main"
+                style="@style/mainActivity_Buttons"
+                android:onClick="onClick"
+                android:text="@string/cadastroPaises" />
+
+            <Button
+                android:id="@+id/btnMtJusto_Main"
+                style="@style/mainActivity_Buttons"
+                android:onClick="onClick"
+                android:text="@string/precoMuitoJusto" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnAutonomia_Main"
+                style="@style/mainActivity_Buttons"
+                android:onClick="onClick"
+                android:text="@string/autonomia" />
+
+            <Button
+                android:id="@+id/btnCalculadora_Main"
+                style="@style/mainActivity_Buttons"
+                android:onClick="onClick"
+                android:text="@string/calculadora" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

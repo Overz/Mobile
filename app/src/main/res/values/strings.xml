@@ -5,6 +5,7 @@
     <string name="activityPMuitoJusto">Preço Muito Justo</string>
     <string name="activityAutonomia">Autonomia Total</string>
     <string name="activityCalculadora">Calculadora Noob</string>
+    <string name="activityPaises">Cadastro de Países</string>
 
     <string name="bemVindo">Bem Vindo!</string>
     <string name="calcularMedia">Calcular Média</string>
@@ -12,6 +13,7 @@
     <string name="autonomia">Autonomia</string>
     <string name="calculadora">Calculadora</string>
     <string name="precoMuitoJusto">Muito Justo</string>
+    <string name="cadastroPaises">Cadastrar Países</string>
 
     <!-- Activity Calcular Média -->
     <string name="nomeAluno">Nome do Aluno</string>
@@ -68,11 +70,17 @@
     <string name="resultadoOperacao">%1$s %2$s %3$s = %4$s \n</string>
     <!-- Activity Preço Justo -->
 
+    <!--  Activity Cadastrar Pais/Estado  -->
+    <string name="hint_estado">Nome do Estado</string>
+    <string name="hint_uf">UF</string>
+    <!--  Activity Cadastrar Pais/Estado  -->
+
     <string name="voltar">Voltar</string>
     <string name="voltando">Voltando</string>
     <string name="calcular">Calcular</string>
     <string name="limparDados">Limpar Dados</string>
-    <string name="limpando" type="id">Limpando</string>
+    <string name="limpando">Limpando</string>
+    <string name="cadastrar">Cadastrar</string>
 
     <string name="erro">Erro %1$s</string>
     <string name="obrigatorio">%1$s Incompleto ou Obrigatorio!</string>

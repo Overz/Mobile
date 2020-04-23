@@ -8,13 +8,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:label="@string/activityPMuitoJusto" android:name=".view.MuitoJusto" />
-        <activity android:label="@string/activityAutonomia" android:name=".view.Autonomia" />
-        <activity android:label="@string/activityCalculadora" android:name=".view.Calculadora" />
-        <activity android:label="@string/activityPJ" android:name=".view.PrecoJusto" />
-        <activity android:label="@string/activityCalcularMedia" android:name=".view.CalcularMedia" />
-
-        <activity android:name=".view.MainActivity" >
+        <activity
+            android:name=".view.Paises"
+            android:label="@string/activityPaises">
+        </activity>
+        <activity
+            android:name=".view.MuitoJusto"
+            android:label="@string/activityPMuitoJusto" />
+        <activity
+            android:name=".view.Autonomia"
+            android:label="@string/activityAutonomia" />
+        <activity
+            android:name=".view.Calculadora"
+            android:label="@string/activityCalculadora" />
+        <activity
+            android:name=".view.PrecoJusto"
+            android:label="@string/activityPJ" />
+        <activity
+            android:name=".view.CalcularMedia"
+            android:label="@string/activityCalcularMedia" />
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
