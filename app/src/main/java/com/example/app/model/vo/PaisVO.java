@@ -2,16 +2,18 @@ package com.example.app.model.vo;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collection;
+
 public class PaisVO {
 
     private Integer id;
     private String nomePais;
-    private String localidade;
+    private Collection<EstadoVO> collectionEstados;
 
-    public PaisVO(Integer id, String nomePais, String localidade) {
+    public PaisVO(Integer id, String nomePais, Collection<EstadoVO> collectionEstados) {
         this.id = id;
         this.nomePais = nomePais;
-        this.localidade = localidade;
+        this.collectionEstados = collectionEstados;
     }
 
     public PaisVO() {
@@ -33,17 +35,17 @@ public class PaisVO {
         this.nomePais = nomePais;
     }
 
-    public String getLocalidade() {
-        return localidade;
+    public Collection<EstadoVO> getCollectionEstados() {
+        return collectionEstados;
     }
 
-    public void setLocalidade(String localidade) {
-        this.localidade = localidade;
+    public void setCollectionEstados(Collection<EstadoVO> collectionEstados) {
+        this.collectionEstados = collectionEstados;
     }
 
     @NotNull
     @Override
     public String toString() {
-        return "Pais: " + this.nomePais + "(" + this.localidade + ")\n";
+        return "Pais: " + this.nomePais + "" + collectionEstados.toString();
     }
 }

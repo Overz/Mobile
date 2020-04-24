@@ -2,19 +2,19 @@ package com.example.app.model.vo;
 
 import org.jetbrains.annotations.NotNull;
 
-public class EstadoVO extends PaisVO {
+public class EstadoVO {
 
     private Integer id;
     private String nomeEstado;
     private String uf;
-    private String capital;
+    private PaisVO paisVO;
 
-    public EstadoVO(Integer id, String nomeEstado, String uf, String capital) {
+    public EstadoVO(Integer id, String nomeEstado, String uf, PaisVO paisVO) {
         super();
         this.id = id;
         this.nomeEstado = nomeEstado;
         this.uf = uf;
-        this.capital = capital;
+        this.paisVO = paisVO;
     }
 
     public EstadoVO() {
@@ -44,17 +44,17 @@ public class EstadoVO extends PaisVO {
         this.uf = uf;
     }
 
-    public String getCapital() {
-        return capital;
+    public PaisVO getPaisVO() {
+        return paisVO;
     }
 
-    public void setCapital(String capital) {
-        this.capital = capital;
+    public void setPaisVO(PaisVO paisVO) {
+        this.paisVO = paisVO;
     }
 
     @NotNull
     @Override
     public String toString() {
-        return "Estado: " + this.nomeEstado + "/" + this.capital + " (" + this.uf + ")";
+        return "Estado: " + this.nomeEstado + " (" + this.uf + ")";
     }
 }

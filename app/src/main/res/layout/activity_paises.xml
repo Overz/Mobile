@@ -19,6 +19,7 @@
             android:layout_weight="3" />
 
         <ImageButton
+            android:id="@+id/imageButton_Pais"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -47,14 +48,29 @@
             android:hint="@string/hint_uf" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnCadastrar_Pais"
+    <LinearLayout
         android:layout_width="match_parent"
-        style="@style/btnCadastrar"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:text="@string/cadastrar"
-        android:layout_marginBottom="15dp" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnVoltar_Pais"
+            style="@style/btnVoltar"
+            android:layout_weight="2"
+            android:textSize="18sp"
+            android:layout_marginTop="5dp" />
+
+        <Button
+            android:id="@+id/btnCadastrar_Pais"
+            style="@style/btnCadastrar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_margin="5dp"
+            android:layout_marginBottom="15dp"
+            android:text="@string/cadastrar" />
+
+    </LinearLayout>
 
     <ListView
         android:id="@+id/lvEstados_Pais"

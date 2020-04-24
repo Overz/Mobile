@@ -31,6 +31,7 @@ public class AutonomiaController {
 
     /**
      * Construtor + inicializa a Configuração do ArrayList e ArrayAdapter
+     *
      * @param activity Activity
      */
     public AutonomiaController(Autonomia activity) {
@@ -55,6 +56,7 @@ public class AutonomiaController {
 
     /**
      * Preenche o objeto com os valores digitados na tela
+     *
      * @return CarroVO
      */
     private CarroVO getResultadoForm() {
@@ -162,6 +164,7 @@ public class AutonomiaController {
 
     /**
      * Confirguração para possibilitar Confirmação de Exclusão
+     *
      * @param c CarroVO
      */
     private void confirmarExclusaoAction(@NotNull final CarroVO c) {
@@ -180,6 +183,7 @@ public class AutonomiaController {
 
     /**
      * Preenche o formulario com o valor selecionado no ListView, e altera o Dataset, se editado.
+     *
      * @param newCarro CarroVO
      */
     private void editar(@NotNull CarroVO newCarro) {
@@ -192,6 +196,7 @@ public class AutonomiaController {
 
     /**
      * Popula o formulario com o valor selecionado
+     *
      * @param carro CarroVO
      */
     private void popularForm(CarroVO carro) {
@@ -206,6 +211,7 @@ public class AutonomiaController {
 
     /**
      * Verifica os Campos digitados
+     *
      * @param c CarroVO
      * @return true/false
      */
