@@ -281,6 +281,7 @@ public class CalcController {
         this.activity.getEditTextNota1().setText("");
         this.activity.getEditTextNota2().setText("");
         this.clearFocus();
+        System.gc();
         MetodoAuxiliar.hideKeyboard(activity);
         Toast.makeText(activity, activity.getString(R.string.limpando), Toast.LENGTH_SHORT).show();
     }

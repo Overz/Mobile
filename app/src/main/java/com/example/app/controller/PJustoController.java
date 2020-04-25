@@ -82,6 +82,7 @@ public class PJustoController {
         this.activity.getEditParcelas().setText("");
         this.activity.getEditJuros().setText("");
         this.clearFocus();
+        System.gc();
         MetodoAuxiliar.hideKeyboard(activity);
         Toast.makeText(activity, activity.getString(R.string.limpando), Toast.LENGTH_SHORT).show();
     }

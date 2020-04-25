@@ -16,7 +16,7 @@ public class DaoHelper<T> {
         if(mInstance==null) mInstance = new MyORMLiteHelper(c.getApplicationContext());
     }
 
-    public Dao<T, Integer> getDao(){
+    protected Dao<T, Integer> getDao(){
         try {
             return mInstance.getDao(className);
         } catch (SQLException e) {

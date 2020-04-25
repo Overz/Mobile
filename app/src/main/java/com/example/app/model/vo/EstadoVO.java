@@ -9,9 +9,9 @@ import org.jetbrains.annotations.NotNull;
 @DatabaseTable(tableName = "estados")
 public class EstadoVO {
 
-    @DatabaseField(allowGeneratedIdInsert = true, generatedId = true, columnName = "idEstado", dataType = DataType.INTEGER, canBeNull = false, id = true)
+    @DatabaseField(allowGeneratedIdInsert = true, generatedId = true, columnName = "idEstado")
     private Integer id;
-    @DatabaseField(canBeNull = false, columnName = "nomeEstado", dataType = DataType.DATE_STRING, width = 100)
+    @DatabaseField(canBeNull = false, columnName = "nomeEstado", dataType = DataType.DATE_STRING, width = 100, unique = true)
     private String nomeEstado;
     @DatabaseField(canBeNull = false, columnName = "uf", width = 2, dataType = DataType.DATE_STRING)
     private String uf;

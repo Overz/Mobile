@@ -5,9 +5,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import com.example.app.R;
+import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.bo.EstadoBO;
+import com.example.app.model.dao.EstadoDAO;
+import com.example.app.model.dao.PaisDAO;
 import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
+import com.example.app.util.MetodoAuxiliar;
 import com.example.app.view.Paises;
 
 import org.jetbrains.annotations.NotNull;
@@ -17,22 +21,37 @@ import java.util.List;
 public class EstadoController {
     private Paises activity;
     private EstadoVO e;
+    private BaseDAO<EstadoVO> daoE;
+    private BaseDAO<PaisVO> daoP;
 
-    private List<EstadoVO> listPais;
-    private ArrayAdapter<PaisVO> adapterPais;
-    private ArrayAdapter<EstadoVO> adapterEstado;
+    private List<EstadoVO> listEstados;
+    private List<PaisVO> listPais;
+    private ArrayAdapter<PaisVO> adapterPaises;
+    private ArrayAdapter<EstadoVO> adapterEstados;
 
     public EstadoController(Paises activity) {
         this.activity = activity;
+        daoE = new EstadoDAO(this.activity, EstadoVO.class);
+        daoP = new PaisDAO(this.activity, PaisVO.class);
         this.configListView();
+        this.configSpinner();
 
         //TODO
     }
 
     //TODO
     private void configListView() {
+        daoE.cadastrar(new EstadoVO(1, "Santa Catarina", "SC"));
+        daoE.cadastrar(new EstadoVO(2, "Rio Grande do Sul", "RS"));
+        daoE.cadastrar(new EstadoVO(3, "Parana", "PR"));
 
-        //TODO
+        listEstados = (List<EstadoVO>) daoE.consultarTodos();
+        adapterEstados = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_list_item_1,
+                listEstados
+        );
+        activity.getLvEstados().setAdapter(adapterEstados);
 
         this.addClickCurto();
         this.addClickLongo();
@@ -40,14 +59,22 @@ public class EstadoController {
 
     //TODO
     private void configSpinner() {
+        daoP.cadastrar(new PaisVO(1, "Brasil"));
+        daoP.cadastrar(new PaisVO(2, "Argentina"));
+        daoP.cadastrar(new PaisVO(3, "Uruguai"));
 
-        //TODO
+        adapterPaises = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_spinner_item,
+                (List<PaisVO>) daoP.consultarTodos()
+        );
+        activity.getSpinnerPaises().setAdapter(adapterPaises);
     }
 
     private void addClickCurto() {
         activity.getLvEstados().setOnItemClickListener(
                 (parent, view, position, id) -> {
-                    this.e = adapterEstado.getItem(position);
+                    this.e = adapterEstados.getItem(position);
                     if (this.e != null) {
                         AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
                         alerta.setTitle("Carro");
@@ -65,7 +92,7 @@ public class EstadoController {
     private void addClickLongo() {
         activity.getLvEstados().setOnItemLongClickListener(
                 (parent, view, position, id) -> {
-                    this.e = adapterEstado.getItem(position);
+                    this.e = adapterEstados.getItem(position);
                     if (this.e != null) {
                         this.excluirAction();
                     } else {
@@ -89,7 +116,7 @@ public class EstadoController {
 
     //TODO
     private void cadastrar() {
-        adapterEstado.add(getResultadoForm());
+        adapterEstados.add(getResultadoForm());
         this.limparForm();
     }
 
@@ -97,7 +124,7 @@ public class EstadoController {
     private void editarAction(@NotNull EstadoVO newEstado) {
         this.e.setNomeEstado(newEstado.getNomeEstado());
         this.e.setUf(newEstado.getUf());
-        adapterEstado.notifyDataSetChanged();
+        adapterEstados.notifyDataSetChanged();
         this.e = null;
 
         //TODO
@@ -112,7 +139,7 @@ public class EstadoController {
         alerta.setNegativeButton("Não", (dialog, which) -> this.e = null);
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
-            adapterEstado.remove(e);
+            adapterEstados.remove(e);
             this.e = null;
         });
         alerta.show();
@@ -161,8 +188,9 @@ public class EstadoController {
     private void limparTudo() {
         this.limparForm();
         this.clearFocus();
-        adapterEstado.clear();
-        adapterPais.clear();
+        MetodoAuxiliar.hideKeyboard(activity);
+//        adapterEstados.clear();
+//        adapterPaises.clear();
         e = null;
         System.gc();
     }
@@ -178,7 +206,6 @@ public class EstadoController {
         Toast.makeText(this.activity, R.string.voltando, Toast.LENGTH_SHORT).show();
         this.activity.finish();
     }
-
 
 
 }

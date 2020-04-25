@@ -50,5 +50,6 @@ public class MainActivity extends AppCompatActivity {
                 it = new Intent(this, Paises.class);
                 startActivity(it);
         }
+        System.gc();
     }
 }

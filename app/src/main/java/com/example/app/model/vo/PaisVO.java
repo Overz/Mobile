@@ -14,7 +14,7 @@ public class PaisVO {
 
     @DatabaseField(columnName = "idPaises", generatedId = true, allowGeneratedIdInsert = true, id = true, dataType = DataType.INTEGER, canBeNull = false)
     private Integer id;
-    @DatabaseField(canBeNull = false, columnName = "nomeEstado", dataType = DataType.DATE_STRING, width = 100)
+    @DatabaseField(canBeNull = false, columnName = "nomeEstado", dataType = DataType.DATE_STRING, width = 100, unique = true)
     private String nomePais;
     @ForeignCollectionField(eager = true)
     private Collection<EstadoVO> collectionEstados;
