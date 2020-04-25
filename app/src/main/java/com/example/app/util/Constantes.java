@@ -8,4 +8,7 @@ public class Constantes {
 
     public static final Integer PACELA_MAX = 12;
 
+    public static final Integer CODIGO_RETORNO_SUCESSO = 1;
+    public static final Integer CODIGO_RETORNO_ERRO = 0;
+
 }

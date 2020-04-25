@@ -161,6 +161,8 @@ public class EstadoController {
     private void limparTudo() {
         this.limparForm();
         this.clearFocus();
+        adapterEstado.clear();
+        adapterPais.clear();
         e = null;
         System.gc();
     }
@@ -176,5 +178,7 @@ public class EstadoController {
         Toast.makeText(this.activity, R.string.voltando, Toast.LENGTH_SHORT).show();
         this.activity.finish();
     }
+
+
 
 }
