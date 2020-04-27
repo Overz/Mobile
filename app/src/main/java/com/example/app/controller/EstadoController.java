@@ -137,7 +137,12 @@ public class EstadoController {
 
     private void cadastrar() {
         this.e = getResultadoForm();
-        adapterEstados.add(daoE.cadastrar(this.e));
+        EstadoVO estadoCadastrado = daoE.cadastrar(this.e);
+        if (estadoCadastrado != null) {
+            adapterEstados.add(estadoCadastrado);
+        } else {
+            Toast.makeText(activity, "Erro ao Cadastrar:" + e.toString(), Toast.LENGTH_SHORT).show();
+        }
         Log.i("Cadastrando", "Cadastrando: " + getResultadoForm().toString());
         Toast.makeText(activity, "Estado Cadastrado:" + e.toString(), Toast.LENGTH_SHORT).show();
     }
@@ -149,7 +154,7 @@ public class EstadoController {
 
         adapterEstados.notifyDataSetChanged();
         int i = daoE.alterar(this.e);
-        Toast.makeText(activity,"Estado Alterado:" + e.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Estado Alterado:" + e.toString() + "\nLinhas Alteradas: " + i, Toast.LENGTH_SHORT).show();
         Log.i("Alterando", "Alterando: " + newEstado.toString());
     }
 
@@ -162,7 +167,7 @@ public class EstadoController {
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
             int i = daoE.excluir(this.e);
-            Toast.makeText(activity,"Estado Excluido:" + e.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Estado Excluido:" + e.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
             Log.i("Excluindo", "Excluido");
             adapterEstados.remove(this.e);
             this.e = null;
