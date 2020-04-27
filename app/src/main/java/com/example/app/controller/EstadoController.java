@@ -35,11 +35,8 @@ public class EstadoController {
         daoP = new PaisDAO(this.activity, PaisVO.class);
         this.configListView();
         this.configSpinner();
-
-        //TODO
     }
 
-    //TODO
     private void configListView() {
         daoE.cadastrar(new EstadoVO(1, "Santa Catarina", "SC"));
         daoE.cadastrar(new EstadoVO(2, "Rio Grande do Sul", "RS"));
@@ -57,9 +54,8 @@ public class EstadoController {
         this.addClickLongo();
     }
 
-    //TODO
     private void configSpinner() {
-        daoP.cadastrar(new PaisVO(1, "Brasil"));
+        daoP.cadastrar(new PaisVO(1, ""));
         daoP.cadastrar(new PaisVO(2, "Argentina"));
         daoP.cadastrar(new PaisVO(3, "Uruguai"));
 
@@ -111,7 +107,7 @@ public class EstadoController {
         } else {
             this.editarAction(getResultadoForm());
         }
-        this.limparTudo();
+        this.limparForm();
     }
 
     //TODO
@@ -173,9 +169,6 @@ public class EstadoController {
             activity.getEditUF().requestFocus();
             return false;
         }
-
-        //TODO
-
         return true;
     }
 
@@ -183,16 +176,16 @@ public class EstadoController {
         activity.getEditUF().setText("");
         activity.getEditNomeEstado().setText("");
         activity.getSpinnerPaises().setSelection(-1);
+        this.clearFocus();
+        MetodoAuxiliar.hideKeyboard(activity);
+        this.e = null;
+        System.gc();
     }
 
     private void limparTudo() {
         this.limparForm();
-        this.clearFocus();
-        MetodoAuxiliar.hideKeyboard(activity);
-//        adapterEstados.clear();
-//        adapterPaises.clear();
-        e = null;
-        System.gc();
+        adapterEstados.clear();
+        adapterPaises.clear();
     }
 
     private void clearFocus() {

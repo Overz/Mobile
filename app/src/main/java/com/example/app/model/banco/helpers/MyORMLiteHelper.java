@@ -40,7 +40,7 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
         try {
             TableUtils.dropTable(connectionSource, PaisVO.class, true);
             TableUtils.dropTable(connectionSource, EstadoVO.class, true);
-            onCreate(sqLiteDatabase, connectionSource);
+            this.onCreate(sqLiteDatabase, connectionSource);
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage() + "\n"
@@ -50,4 +50,7 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
             );
         }
     }
+
+
+
 }

@@ -12,9 +12,9 @@ import java.util.Collection;
 @DatabaseTable(tableName = "paises")
 public class PaisVO {
 
-    @DatabaseField(columnName = "idPaises", generatedId = true, allowGeneratedIdInsert = true, id = true, dataType = DataType.INTEGER, canBeNull = false)
+    @DatabaseField(generatedId = true, allowGeneratedIdInsert = true)
     private Integer id;
-    @DatabaseField(canBeNull = false, columnName = "nomeEstado", dataType = DataType.DATE_STRING, width = 100, unique = true)
+    @DatabaseField(canBeNull = false, unique = true, width = 100, dataType = DataType.STRING)
     private String nomePais;
     @ForeignCollectionField(eager = true)
     private Collection<EstadoVO> collectionEstados;
@@ -68,6 +68,6 @@ public class PaisVO {
     @NotNull
     @Override
     public String toString() {
-        return "Pais: " + this.nomePais + "" + collectionEstados.toString();
+        return "Pais: " + this.nomePais;
     }
 }
