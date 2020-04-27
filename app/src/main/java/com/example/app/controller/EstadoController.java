@@ -1,6 +1,7 @@
 package com.example.app.controller;
 
 import android.app.AlertDialog;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -37,11 +38,21 @@ public class EstadoController {
         this.configSpinner();
     }
 
-    private void configListView() {
-        daoE.cadastrar(new EstadoVO(1, "Santa Catarina", "SC"));
-        daoE.cadastrar(new EstadoVO(2, "Rio Grande do Sul", "RS"));
-        daoE.cadastrar(new EstadoVO(3, "Parana", "PR"));
+    private void addEstados() {
+        //        Estados
+        if (daoE.cadastrar(new EstadoVO(1, "Santa Catarina", "SC")) != null) {
+            Log.i("Cadastro Estado", "1, Cadastrado");
+        }
+        if (daoE.cadastrar(new EstadoVO(2, "Rio Grande do Sul", "RS")) != null) {
+            Log.i("Cadastro Estado", "2, Cadastrado");
+        }
+        if (daoE.cadastrar(new EstadoVO(3, "Parana", "PR")) != null) {
+            Log.i("Cadastro Estado", "3, Cadsatrado");
+        }
+    }
 
+    private void configListView() {
+        //this.addEstados();
         listEstados = (List<EstadoVO>) daoE.consultarTodos();
         adapterEstados = new ArrayAdapter<>(
                 activity,
@@ -54,11 +65,21 @@ public class EstadoController {
         this.addClickLongo();
     }
 
-    private void configSpinner() {
-        daoP.cadastrar(new PaisVO(1, ""));
-        daoP.cadastrar(new PaisVO(2, "Argentina"));
-        daoP.cadastrar(new PaisVO(3, "Uruguai"));
+    private void addPaises() {
+//        Paises
+        if (daoP.cadastrar(new PaisVO(1, "Brasil")) != null) {
+            Log.i("Cadastro Pais", "1, Cadsatrado");
+        }
+        if (daoP.cadastrar(new PaisVO(2, "Argentina")) != null) {
+            Log.i("Cadastro Pais", "2, Cadsatrado");
+        }
+        if (daoP.cadastrar(new PaisVO(3, "Uruguai")) != null) {
+            Log.i("Cadastro Pais", "3, Cadsatrado");
+        }
+    }
 
+    private void configSpinner() {
+        this.addPaises();
         adapterPaises = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_item,
@@ -105,28 +126,33 @@ public class EstadoController {
                 this.cadastrar();
             }
         } else {
-            this.editarAction(getResultadoForm());
+            this.editarAction(this.getResultadoForm());
         }
-        this.limparForm();
+        if (validarCampos(e)) {
+            this.limparForm();
+        }
+        this.e = null;
+        System.gc();
     }
 
-    //TODO
     private void cadastrar() {
-        adapterEstados.add(getResultadoForm());
-        this.limparForm();
+        this.e = getResultadoForm();
+        adapterEstados.add(daoE.cadastrar(this.e));
+        Log.i("Cadastrando", "Cadastrando: " + getResultadoForm().toString());
+        Toast.makeText(activity, "Estado Cadastrado:" + e.toString(), Toast.LENGTH_SHORT).show();
     }
 
-    //TODO
     private void editarAction(@NotNull EstadoVO newEstado) {
         this.e.setNomeEstado(newEstado.getNomeEstado());
         this.e.setUf(newEstado.getUf());
-        adapterEstados.notifyDataSetChanged();
-        this.e = null;
+        this.e.setPaisVO(newEstado.getPaisVO());
 
-        //TODO
+        adapterEstados.notifyDataSetChanged();
+        int i = daoE.alterar(this.e);
+        Toast.makeText(activity,"Estado Alterado:" + e.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
+        Log.i("Alterando", "Alterando: " + newEstado.toString());
     }
 
-    //TODO
     private void excluirAction() {
         AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
         alerta.setTitle("Excluindo Carro");
@@ -135,7 +161,10 @@ public class EstadoController {
         alerta.setNegativeButton("Não", (dialog, which) -> this.e = null);
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
-            adapterEstados.remove(e);
+            int i = daoE.excluir(this.e);
+            Toast.makeText(activity,"Estado Excluido:" + e.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
+            Log.i("Excluindo", "Excluido");
+            adapterEstados.remove(this.e);
             this.e = null;
         });
         alerta.show();
@@ -150,12 +179,13 @@ public class EstadoController {
         }
     }
 
+    @NotNull
     private EstadoVO getResultadoForm() {
-        e = new EstadoVO();
-        e.setNomeEstado(activity.getSpinnerPaises().getSelectedItem().toString());
-        e.setUf(activity.getEditUF().getText().toString());
-        e.setPaisVO((PaisVO) activity.getSpinnerPaises().getSelectedItem());
-        return e;
+        EstadoVO estado = new EstadoVO();
+        estado.setNomeEstado(activity.getEditNomeEstado().getText().toString());
+        estado.setUf(activity.getEditUF().getText().toString());
+        estado.setPaisVO((PaisVO) activity.getSpinnerPaises().getSelectedItem());
+        return estado;
     }
 
     private boolean validarCampos(EstadoVO e) {
@@ -165,7 +195,7 @@ public class EstadoController {
             return false;
         }
         if (!EstadoBO.validarEstadoUF(e)) {
-            activity.getEditUF().setError("UF Invalido, Digite novamente.");
+            activity.getEditUF().setError("UF Invalido, Use 2 Caracteres.");
             activity.getEditUF().requestFocus();
             return false;
         }
@@ -178,8 +208,6 @@ public class EstadoController {
         activity.getSpinnerPaises().setSelection(-1);
         this.clearFocus();
         MetodoAuxiliar.hideKeyboard(activity);
-        this.e = null;
-        System.gc();
     }
 
     private void limparTudo() {
@@ -199,6 +227,5 @@ public class EstadoController {
         Toast.makeText(this.activity, R.string.voltando, Toast.LENGTH_SHORT).show();
         this.activity.finish();
     }
-
 
 }

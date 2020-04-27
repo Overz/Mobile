@@ -1,6 +1,5 @@
 package com.example.app.model.banco;
 
-import java.util.Collection;
 import java.util.List;
 
 public interface BaseDAO<T> {
@@ -20,10 +19,10 @@ public interface BaseDAO<T> {
 
     /**
      * Método para cadastrar;
-     * @param object: Object
+     * @param object : Object
      * @return object
      */
-    Integer cadastrar(T object);
+    T cadastrar(T object);
 
     /**
      * Método para altera/atualizar;
@@ -34,8 +33,8 @@ public interface BaseDAO<T> {
 
     /**
      * Método para excluir;
-     * @param id: Int array
+     * @param object : Int array
      * @return true/false
      */
-    Integer excluir(Collection<Integer> id);
+    Integer excluir(T object);
 }

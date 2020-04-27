@@ -9,11 +9,11 @@ import org.jetbrains.annotations.NotNull;
 @DatabaseTable(tableName = "estados")
 public class EstadoVO {
 
-    @DatabaseField(allowGeneratedIdInsert = true, generatedId = true)
+    @DatabaseField(allowGeneratedIdInsert = true, generatedId = true, indexName = "idEstado")
     private Integer id;
-    @DatabaseField(canBeNull = false, unique = true, width = 100, dataType = DataType.STRING    )
+    @DatabaseField(canBeNull = false, unique = true, width = 100, dataType = DataType.STRING, columnName = "nomeEstado")
     private String nomeEstado;
-    @DatabaseField(canBeNull = false, unique = true, width = 2, dataType = DataType.STRING)
+    @DatabaseField(canBeNull = false, unique = true, width = 2, dataType = DataType.STRING, columnName = "ufEstado")
     private String uf;
     @DatabaseField(canBeNull = false, foreign = true, foreignAutoRefresh = true)
     private PaisVO paisVO;
@@ -83,6 +83,6 @@ public class EstadoVO {
     @NotNull
     @Override
     public String toString() {
-        return "Estado: " + this.nomeEstado + " (" + this.uf + ")";
+        return "Estado: " + this.nomeEstado + " (UF: " + this.uf + ")/" + paisVO.toString();
     }
 }

@@ -5,21 +5,26 @@ import android.content.Context;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.banco.helpers.DaoHelper;
 import com.example.app.model.vo.EstadoVO;
+import com.example.app.util.Constantes;
 
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.List;
 
 public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> {
+
+    private Integer i;
+    private EstadoVO e;
+    private List<EstadoVO> list;
 
     public EstadoDAO(Context c, Class className) {
         super(c, className);
     }
 
     @Override
-    public List<?> consultarTodos() {
+    public List<EstadoVO> consultarTodos() {
         try {
-            return getDao().queryForAll();
+            list = getDao().queryForAll();
+            if (list != null) return list;
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage() + "\n"
@@ -34,7 +39,8 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
     @Override
     public EstadoVO consultarPorId(int id) {
         try {
-            return getDao().queryForId(id);
+            e = getDao().queryForId(id);
+            if (e != null) return e;
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage() + "\n"
@@ -47,9 +53,10 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
     }
 
     @Override
-    public Integer cadastrar(EstadoVO object) {
+    public EstadoVO cadastrar(EstadoVO object) {
         try {
-            return getDao().create(object);
+            e = getDao().createIfNotExists(object);
+            if (e != null) return e;
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
@@ -63,7 +70,8 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
     @Override
     public Integer alterar(EstadoVO object) {
         try {
-            return getDao().update(object);
+            i = getDao().update(object);
+            if (i.equals(Constantes.CODIGO_RETORNO_SUCESSO)) return i;
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
@@ -75,9 +83,10 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
     }
 
     @Override
-    public Integer excluir(Collection<Integer> id) {
+    public Integer excluir(EstadoVO estado) {
         try {
-            return getDao().deleteIds(id);
+            i = getDao().delete(estado);
+            if (i.equals(Constantes.CODIGO_RETORNO_SUCESSO)) return i;
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
