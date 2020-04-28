@@ -51,6 +51,4 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-
-
 }
