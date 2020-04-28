@@ -9,6 +9,7 @@ import com.example.app.R;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.bo.PaisBO;
 import com.example.app.model.dao.PaisDAO;
+import com.example.app.model.dao.RegiaoDAO;
 import com.example.app.model.vo.PaisVO;
 import com.example.app.model.vo.RegiaoVO;
 import com.example.app.util.MetodoAuxiliar;
@@ -32,6 +33,7 @@ public class PaisController {
     public PaisController(CadastroPais activity) {
         this.activity = activity;
         daoP = new PaisDAO(this.activity, PaisVO.class);
+        daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
         this.configListView();
         this.configSpinner();
     }
@@ -50,29 +52,7 @@ public class PaisController {
         this.addClickLongo();
     }
 
-    private void addRegiao() {
-        if (daoR.cadastrar(new RegiaoVO(1, "America do Norte")) != null) {
-            Log.i("Cadastro Regiao", "1, Cadsatrado");
-        }
-        if (daoR.cadastrar(new RegiaoVO(2, "America do Central")) != null) {
-            Log.i("Cadastro Regiao", "2, Cadsatrado");
-        }
-        if (daoR.cadastrar(new RegiaoVO(3, "America do Sul")) != null) {
-            Log.i("Cadastro Regiao", "3, Cadsatrado");
-        }
-        if (daoR.cadastrar(new RegiaoVO(4, "Europa")) != null) {
-            Log.i("Cadastro Regiao", "4, Cadsatrado");
-        }
-        if (daoR.cadastrar(new RegiaoVO(5, "Asia")) != null) {
-            Log.i("Cadastro Regiao", "5, Cadsatrado");
-        }
-        if (daoR.cadastrar(new RegiaoVO(6, "Oceania")) != null) {
-            Log.i("Cadastro Regiao", "6, Cadsatrado");
-        }
-    }
-
     private void configSpinner() {
-        this.addRegiao();
         listRegiaoPais = (List<RegiaoVO>) daoR.consultarTodos();
         adapterRegiaoPais = new ArrayAdapter<>(
                 activity,
@@ -188,6 +168,15 @@ public class PaisController {
         }
     }
 
+    @NotNull
+    private PaisVO getResultadoForm() {
+        PaisVO pais = new PaisVO();
+        pais.setNomePais(activity.getEditNomePais().getText().toString());
+        pais.setCapital(activity.getEditCapital().getText().toString());
+        pais.getRegiaoVO().setRegiao_localizacao(activity.getSpinnerPais().getSelectedItem());
+        return pais;
+    }
+
     private void teste() {
         String compareValue = (String) activity.getSpinnerPais().getSelectedItem();
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
@@ -198,15 +187,6 @@ public class PaisController {
             int spinnerPosition = adapter.getPosition(compareValue);
             activity.getSpinnerPais().setSelection(spinnerPosition);
         }
-    }
-
-    @NotNull
-    private PaisVO getResultadoForm() {
-        PaisVO pais = new PaisVO();
-        pais.setNomePais(activity.getEditNomePais().getText().toString());
-        pais.setCapital(activity.getEditCapital().getText().toString());
-        pais.getRegiaoVO().setRegiao_localizacao(activity.getSpinnerPais().getSelectedItem());
-        return pais;
     }
 
     private boolean validarCampos(PaisVO p) {

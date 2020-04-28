@@ -83,6 +83,6 @@ public class EstadoVO {
     @NotNull
     @Override
     public String toString() {
-        return "Estado: " + this.nomeEstado + " (UF: " + this.uf + ")/" + paisVO.toString();
+        return "Estado: " + this.nomeEstado + " (UF: " + this.uf.toUpperCase() + ") / " + paisVO.toString();
     }
 }

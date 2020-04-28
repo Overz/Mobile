@@ -91,17 +91,18 @@ public class EstadoController {
     }
 
     private void addPaises() {
-        if (daoP.cadastrar(new PaisVO(1, "Brasil", "Brasilia", e.getPaisVO().getRegiaoVO())) != null) {
+//        this.addRegiao();
+        if (daoP.cadastrar(new PaisVO(1, "Brasil", "Brasilia", new RegiaoVO(1, "America do Sul"))) != null) {
             Log.i("Cadastro Pais", "1, Cadsatrado");
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
-        if (daoP.cadastrar(new PaisVO(2, "Argentina", "Buenos Aires", e.getPaisVO().getRegiaoVO())) != null) {
+        if (daoP.cadastrar(new PaisVO(2, "Argentina", "Buenos Aires", new RegiaoVO(1, "America do Sul"))) != null) {
             Log.i("Cadastro Pais", "2, Cadsatrado");
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
-        if (daoP.cadastrar(new PaisVO(3, "Uruguai", "Montevideo", e.getPaisVO().getRegiaoVO())) != null) {
+        if (daoP.cadastrar(new PaisVO(3, "Uruguai", "Montevideo", new RegiaoVO(1, "America do Sul"))) != null) {
             Log.i("Cadastro Pais", "3, Cadsatrado");
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
@@ -109,7 +110,6 @@ public class EstadoController {
     }
 
     private void configSpinner() {
-        this.addRegiao();
         this.addPaises();
         listPais = (List<PaisVO>) daoP.consultarColuna(Constantes.DB_PAIS_NOME);
         adapterPaises = new ArrayAdapter<>(

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
+import com.example.app.model.vo.RegiaoVO;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
     //Configuração do banco de dados
     private static final String DATABASE_NAME = "appAtividades.mwb";
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 18;
 
     MyORMLiteHelper(Context c) {
         super(c, DATABASE_NAME, null, DATABASE_VERSION);
@@ -23,6 +24,7 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource) {
         try {
+            TableUtils.createTableIfNotExists(connectionSource, RegiaoVO.class);
             TableUtils.createTableIfNotExists(connectionSource, PaisVO.class);
             TableUtils.createTableIfNotExists(connectionSource, EstadoVO.class);
         } catch (SQLException e) {
@@ -38,6 +40,7 @@ public class MyORMLiteHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i1) {
         try {
+            TableUtils.dropTable(connectionSource, RegiaoVO.class, true);
             TableUtils.dropTable(connectionSource, PaisVO.class, true);
             TableUtils.dropTable(connectionSource, EstadoVO.class, true);
             this.onCreate(sqLiteDatabase, connectionSource);
