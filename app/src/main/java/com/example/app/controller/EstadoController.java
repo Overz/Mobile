@@ -12,15 +12,16 @@ import com.example.app.model.dao.EstadoDAO;
 import com.example.app.model.dao.PaisDAO;
 import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
+import com.example.app.util.Constantes;
 import com.example.app.util.MetodoAuxiliar;
-import com.example.app.view.Paises;
+import com.example.app.view.Cadastro_EstadosPaises;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
 public class EstadoController {
-    private Paises activity;
+    private Cadastro_EstadosPaises activity;
     private EstadoVO e;
     private BaseDAO<EstadoVO> daoE;
     private BaseDAO<PaisVO> daoP;
@@ -30,7 +31,7 @@ public class EstadoController {
     private ArrayAdapter<PaisVO> adapterPaises;
     private ArrayAdapter<EstadoVO> adapterEstados;
 
-    public EstadoController(Paises activity) {
+    public EstadoController(Cadastro_EstadosPaises activity) {
         this.activity = activity;
         daoE = new EstadoDAO(this.activity, EstadoVO.class);
         daoP = new PaisDAO(this.activity, PaisVO.class);
@@ -38,27 +39,14 @@ public class EstadoController {
         this.configSpinner();
     }
 
-    private void addEstados() {
-        //        Estados
-        if (daoE.cadastrar(new EstadoVO(1, "Santa Catarina", "SC")) != null) {
-            Log.i("Cadastro Estado", "1, Cadastrado");
-        }
-        if (daoE.cadastrar(new EstadoVO(2, "Rio Grande do Sul", "RS")) != null) {
-            Log.i("Cadastro Estado", "2, Cadastrado");
-        }
-        if (daoE.cadastrar(new EstadoVO(3, "Parana", "PR")) != null) {
-            Log.i("Cadastro Estado", "3, Cadsatrado");
-        }
-    }
-
     private void configListView() {
-        //this.addEstados();
         listEstados = (List<EstadoVO>) daoE.consultarTodos();
         adapterEstados = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_list_item_1,
                 listEstados
         );
+        adapterEstados.notifyDataSetChanged();
         activity.getLvEstados().setAdapter(adapterEstados);
 
         this.addClickCurto();
@@ -66,7 +54,6 @@ public class EstadoController {
     }
 
     private void addPaises() {
-//        Paises
         if (daoP.cadastrar(new PaisVO(1, "Brasil")) != null) {
             Log.i("Cadastro Pais", "1, Cadsatrado");
         }
@@ -80,11 +67,13 @@ public class EstadoController {
 
     private void configSpinner() {
         this.addPaises();
+        listPais = (List<PaisVO>) daoP.consultarColuna(Constantes.DB_PAIS_NOME);
         adapterPaises = new ArrayAdapter<>(
                 activity,
-                android.R.layout.simple_spinner_item,
-                (List<PaisVO>) daoP.consultarTodos()
+                android.R.layout.simple_spinner_dropdown_item,
+                listPais
         );
+        adapterPaises.notifyDataSetChanged();
         activity.getSpinnerPaises().setAdapter(adapterPaises);
     }
 
@@ -128,7 +117,7 @@ public class EstadoController {
         } else {
             this.editarAction(this.getResultadoForm());
         }
-        if (validarCampos(e)) {
+        if (this.validarCampos(this.getResultadoForm())) {
             this.limparForm();
         }
         this.e = null;
@@ -215,7 +204,7 @@ public class EstadoController {
         MetodoAuxiliar.hideKeyboard(activity);
     }
 
-    private void limparTudo() {
+    private void limparDados() {
         this.limparForm();
         adapterEstados.clear();
         adapterPaises.clear();

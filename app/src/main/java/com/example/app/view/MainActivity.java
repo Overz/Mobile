@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(it);
                 break;
             case R.id.btnPaises_Main:
-                it = new Intent(this, Paises.class);
+                it = new Intent(this, Cadastro_EstadosPaises.class);
                 startActivity(it);
         }
         System.gc();

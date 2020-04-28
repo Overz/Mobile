@@ -14,15 +14,34 @@ public class PaisVO {
 
     @DatabaseField(generatedId = true, allowGeneratedIdInsert = true, indexName = "idPais")
     private Integer id;
-    @DatabaseField(canBeNull = false, unique = true, width = 100, dataType = DataType.STRING, columnName = "nomePais")
+    @DatabaseField(canBeNull = false, width = 100, dataType = DataType.STRING, columnName = "nomePais")
     private String nomePais;
+    @DatabaseField(canBeNull = false, unique = true, width = 100, dataType = DataType.STRING, columnName = "capitalPais")
+    private String capital;
+    @DatabaseField(foreign = true, foreignAutoRefresh = true, canBeNull = false)
+    private RegiaoVO regiaoVO;
     @ForeignCollectionField(eager = true)
     private Collection<EstadoVO> collectionEstados;
 
-    public PaisVO(Integer id, String nomePais, Collection<EstadoVO> collectionEstados) {
+    public PaisVO(Integer id, String nomePais, String capital, RegiaoVO regiaoVO, Collection<EstadoVO> collectionEstados) {
         this.id = id;
         this.nomePais = nomePais;
+        this.capital = capital;
+        this.regiaoVO = regiaoVO;
         this.collectionEstados = collectionEstados;
+    }
+
+    public PaisVO(Integer id, String nomePais, String capital, RegiaoVO regiaoVO) {
+        this.id = id;
+        this.nomePais = nomePais;
+        this.capital = capital;
+        this.regiaoVO = regiaoVO;
+    }
+
+    public PaisVO(Integer id, String nomePais, String capital) {
+        this.id = id;
+        this.nomePais = nomePais;
+        this.capital = capital;
     }
 
     public PaisVO(Integer id, String nomePais) {
@@ -30,12 +49,15 @@ public class PaisVO {
         this.nomePais = nomePais;
     }
 
-    public PaisVO(String nomePais) {
+    public PaisVO(String nomePais, String capital, RegiaoVO regiaoVO) {
         this.nomePais = nomePais;
+        this.capital = capital;
+        this.regiaoVO = regiaoVO;
     }
 
-    public PaisVO(Integer id) {
-        this.id = id;
+    public PaisVO(String nomePais, RegiaoVO regiaoVO) {
+        this.nomePais = nomePais;
+        this.regiaoVO = regiaoVO;
     }
 
     public PaisVO() {
@@ -57,6 +79,22 @@ public class PaisVO {
         this.nomePais = nomePais;
     }
 
+    public String getCapital() {
+        return capital;
+    }
+
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+
+    public RegiaoVO getRegiaoVO() {
+        return regiaoVO;
+    }
+
+    public void setRegiaoVO(RegiaoVO regiaoVO) {
+        this.regiaoVO = regiaoVO;
+    }
+
     public Collection<EstadoVO> getCollectionEstados() {
         return collectionEstados;
     }
@@ -69,5 +107,9 @@ public class PaisVO {
     @Override
     public String toString() {
         return this.nomePais;
+    }
+
+    public String toString2() {
+        return "Pais: " + this.nomePais + "(" + this.capital + ")";
     }
 }

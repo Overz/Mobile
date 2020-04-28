@@ -11,4 +11,16 @@ public class Constantes {
     public static final Integer CODIGO_RETORNO_SUCESSO = 1;
     public static final Integer CODIGO_RETORNO_ERRO = 0;
 
+    public static final String DB_PAIS_ID = "idPais";
+    public static final String DB_PAIS_NOME= "nomePais";
+    public static final String DB_PAIS_CAPITAL = "capitalPais";
+    public static final String DB_PAIS_REGIAO = "regiaoPais";
+
+
+    public static final String DB_REGIAO_LOCALIDADE = "regiao_localidade";
+
+    public static final String DB_ESTADO_ID = "idEstado";
+    public static final String DB_ESTADO_NOME = "nomeEstado";
+    public static final String DB_ESTADO_UF = "ufEstado";
+
 }

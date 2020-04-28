@@ -86,4 +86,32 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
         }
         return null;
     }
+
+    @Override
+    public List<PaisVO> consultarColuna(String string) {
+        try {
+            return getDao().queryBuilder().selectColumns(string).query();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "\n"
+                    + e.getCause() + "\n"
+                    + e.getNextException() + "\n"
+                    + e.getClass().getSimpleName()
+            );
+        }
+        return null;
+    }
+
+    @Override
+    public Integer inserirDadosEmColuna(String table, String value) {
+        try {
+            return getDao().executeRaw("INSERT INTO " + table + " VALUES ("+value+")");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "\n"
+                    + e.getCause() + "\n"
+                    + e.getNextException() + "\n"
+                    + e.getClass().getSimpleName()
+            );
+        }
+        return null;
+    }
 }

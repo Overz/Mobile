@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="select_state">
+        <item>Amerida do Sul</item>
+        <item>Amerida do Norte</item>
+        <item>America Central</item>
+        <item>Asia</item>
+        <item>Europa</item>
+        <item>Oceania</item>
+    </string-array>
+
+</resources>

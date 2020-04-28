@@ -1,4 +1,6 @@
 <resources>
+
+    <!-- Labels -->
     <string name="app_name">Atividades</string>
     <string name="activityCalcularMedia">Calcular Média</string>
     <string name="activityPJ">Preço Justo</string>
@@ -6,6 +8,7 @@
     <string name="activityAutonomia">Autonomia Total</string>
     <string name="activityCalculadora">Calculadora Noob</string>
     <string name="activityPaises">Cadastro de Países</string>
+    <string name="activityEstados">Cadastro de Estados</string>
 
     <string name="bemVindo">Bem Vindo!</string>
     <string name="calcularMedia">Calcular Média</string>
@@ -13,7 +16,7 @@
     <string name="autonomia">Autonomia</string>
     <string name="calculadora">Calculadora</string>
     <string name="precoMuitoJusto">Muito Justo</string>
-    <string name="cadastroPaises">Cadastrar Países</string>
+    <string name="cadastroEstadosPaises">Cadastrar Estados/Países</string>
 
     <!-- Activity Calcular Média -->
     <string name="nomeAluno">Nome do Aluno</string>
@@ -73,6 +76,12 @@
     <!--  Activity Cadastrar Pais/Estado  -->
     <string name="hint_estado">Nome do Estado</string>
     <string name="hint_uf">UF</string>
+    <string name="pais">Nome do Pais</string>
+    <string name="hint_pais">Digite o Nome do Pais</string>
+    <string name="capital">Capital do Pais</string>
+    <string name="hint_capital">Digite a Capital do Pais</string>
+    <string name="regiao">Região</string>
+    <string name="hint_regiao">Digite a Região do Pais</string>
     <!--  Activity Cadastrar Pais/Estado  -->
 
     <string name="voltar">Voltar</string>

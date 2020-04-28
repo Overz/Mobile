@@ -9,8 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.Paises"
+            android:name=".view.CadastroPais"
             android:label="@string/activityPaises">
+        </activity>
+        <activity
+            android:name=".view.Cadastro_EstadosPaises"
+            android:label="@string/activityEstados">
         </activity>
         <activity
             android:name=".view.MuitoJusto"

@@ -86,4 +86,23 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
         }
         return null;
     }
+
+    @Override
+    public List<EstadoVO> consultarColuna(String string) {
+        try {
+            return getDao().queryBuilder().selectColumns(string).query();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "\n"
+                    + e.getCause() + "\n"
+                    + e.getNextException() + "\n"
+                    + e.getClass().getSimpleName()
+            );
+        }
+        return null;
+    }
+
+    @Override
+    public Integer inserirDadosEmColuna(String table, String value) {
+        return null;
+    }
 }

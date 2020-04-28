@@ -1,5 +1,6 @@
 package com.example.app.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.app.R;
 import com.example.app.controller.EstadoController;
 
-public class Paises extends AppCompatActivity {
+public class Cadastro_EstadosPaises extends AppCompatActivity {
 
     private EstadoController control;
 
@@ -25,19 +26,19 @@ public class Paises extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_paises);
+        setContentView(R.layout.activity_estados);
         this.initialize();
         control = new EstadoController(this);
     }
 
     private void initialize() {
-        this.btnVoltar = findViewById(R.id.btnVoltar_Pais);
-        this.btnCadastrar = findViewById(R.id.btnCadastrar_Pais);
-        this.editNomeEstado = findViewById(R.id.editNomeEstado_Pais);
-        this.editUF = findViewById(R.id.editUf_Pais);
+        this.btnVoltar = findViewById(R.id.btnVoltar_Estado);
+        this.btnCadastrar = findViewById(R.id.btnCadastrar_Estados);
+        this.editNomeEstado = findViewById(R.id.editNome_Estados);
+        this.editUF = findViewById(R.id.editUf_Estados);
         this.spinnerPaises = findViewById(R.id.spinner_Pais);
         this.imgBtn = findViewById(R.id.imageButton_Pais);
-        this.lvEstados = findViewById(R.id.lvEstados_Pais);
+        this.lvEstados = findViewById(R.id.lvEstados_Estados);
 
         this.onClickListener();
     }
@@ -45,10 +46,11 @@ public class Paises extends AppCompatActivity {
     private void onClickListener() {
         this.btnVoltar.setOnClickListener(v -> control.voltarAction());
         this.btnCadastrar.setOnClickListener(v -> control.salvarAction());
-    }
-
-    public EstadoController getControl() {
-        return control;
+        this.imgBtn.setOnClickListener(v -> {
+            Intent it;
+            it = new Intent(this, CadastroPais.class);
+            startActivity(it);
+        });
     }
 
     public EditText getEditNomeEstado() {

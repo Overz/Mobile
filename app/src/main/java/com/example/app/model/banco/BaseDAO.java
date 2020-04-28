@@ -37,4 +37,13 @@ public interface BaseDAO<T> {
      * @return true/false
      */
     Integer excluir(T object);
+
+    /**
+     * Método para consulta coluna especifica
+     * @param string: Query
+     * @return List
+     */
+    List<?> consultarColuna(String string);
+
+    Integer inserirDadosEmColuna(String table, String value);
 }

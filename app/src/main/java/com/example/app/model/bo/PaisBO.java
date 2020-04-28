@@ -6,13 +6,15 @@ import org.jetbrains.annotations.NotNull;
 
 public class PaisBO {
 
-    public static boolean validarNomePais(@NotNull PaisVO p){
-        return p.getNomePais() != null && !p.getNomePais().isEmpty();
+    public static boolean validarNomePais(@NotNull PaisVO p) {
+        return p.getNomePais() != null && !p.getNomePais().isEmpty() && p.getCapital().length() <= 100;
     }
 
-    public static boolean validarPaisCollection(@NotNull PaisVO p) {
-        return p.getCollectionEstados() != null
-                && p.getCollectionEstados().size() >= 1
-                && !p.getCollectionEstados().isEmpty();
+    public static boolean validarCapital(@NotNull PaisVO p) {
+        return p.getCapital() != null && !p.getCapital().isEmpty() && p.getCapital().length() <= 100;
+    }
+
+    public static boolean validarRegiao(@NotNull PaisVO p) {
+        return p.getRegiao() != null && !p.getRegiao().isEmpty() && p.getRegiao().length() <= 50;
     }
 }

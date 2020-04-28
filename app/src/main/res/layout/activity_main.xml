@@ -52,7 +52,7 @@
                 android:id="@+id/btnPaises_Main"
                 style="@style/mainActivity_Buttons"
                 android:onClick="onClick"
-                android:text="@string/cadastroPaises" />
+                android:text="@string/cadastroEstadosPaises" />
 
             <Button
                 android:id="@+id/btnMtJusto_Main"
