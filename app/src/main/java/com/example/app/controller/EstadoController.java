@@ -56,12 +56,18 @@ public class EstadoController {
     private void addPaises() {
         if (daoP.cadastrar(new PaisVO(1, "Brasil")) != null) {
             Log.i("Cadastro Pais", "1, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
         if (daoP.cadastrar(new PaisVO(2, "Argentina")) != null) {
             Log.i("Cadastro Pais", "2, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
         if (daoP.cadastrar(new PaisVO(3, "Uruguai")) != null) {
             Log.i("Cadastro Pais", "3, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
     }
 

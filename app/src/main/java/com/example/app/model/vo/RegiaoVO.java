@@ -1,8 +1,15 @@
 package com.example.app.model.vo;
 
+import com.j256.ormlite.field.DataType;
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+@DatabaseTable(tableName = "regioes_paises")
 public class RegiaoVO {
 
+    @DatabaseField(generatedId = true, allowGeneratedIdInsert = true, indexName = "idRegiao")
     private Integer id;
+    @DatabaseField(canBeNull = false, unique = true, columnName = "regiao_localizacao_pais", dataType = DataType.STRING, width = 50)
     private String regiao_localizacao;
 
     public RegiaoVO(Integer id, String regiao_localizacao) {
