@@ -4,19 +4,18 @@ import android.content.Context;
 
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.banco.helpers.DaoHelper;
-import com.example.app.model.vo.PaisVO;
+import com.example.app.model.vo.RegiaoVO;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
-
-    public PaisDAO(Context c, Class className) {
+public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> {
+    public RegiaoDAO(Context c, Class className) {
         super(c, className);
     }
 
     @Override
-    public List<PaisVO> consultarTodos() {
+    public List<?> consultarTodos() {
         try {
             return getDao().queryForAll();
         } catch (SQLException e) {
@@ -31,7 +30,7 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public PaisVO consultarPorId(int id) {
+    public RegiaoVO consultarPorId(int id) {
         try {
             return getDao().queryForId(id);
         } catch (SQLException e) {
@@ -46,7 +45,7 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public PaisVO cadastrar(PaisVO object) {
+    public RegiaoVO cadastrar(RegiaoVO object) {
         try {
             return getDao().createIfNotExists(object);
         } catch (SQLException e) {
@@ -60,7 +59,7 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public Integer alterar(PaisVO object) {
+    public Integer alterar(RegiaoVO object) {
         try {
             return getDao().update(object);
         } catch (SQLException e) {
@@ -74,7 +73,7 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public Integer excluir(PaisVO object) {
+    public Integer excluir(RegiaoVO object) {
         try {
             return getDao().delete(object);
         } catch (SQLException e) {
@@ -88,7 +87,7 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public List<PaisVO> consultarColuna(String string) {
+    public List<?> consultarColuna(String string) {
         try {
             return getDao().queryBuilder().selectColumns(string).query();
         } catch (SQLException e) {

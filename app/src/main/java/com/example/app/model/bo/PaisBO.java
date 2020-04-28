@@ -15,6 +15,6 @@ public class PaisBO {
     }
 
     public static boolean validarRegiao(@NotNull PaisVO p) {
-        return p.getRegiaoVO().getRegiao_localizacao() != null && !p.getRegiaoVO().getRegiao_localizacao().isEmpty() && p.getRegiaoVO().getRegiao_localizacao().length() <= 50;
+        return p.getRegiaoVO().getNomeRegiao() != null && !p.getRegiaoVO().getNomeRegiao().isEmpty() && p.getRegiaoVO().getNomeRegiao().length() <= 50;
     }
 }

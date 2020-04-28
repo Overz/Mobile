@@ -9,12 +9,12 @@ public class RegiaoVO {
 
     @DatabaseField(generatedId = true, allowGeneratedIdInsert = true, indexName = "idRegiao")
     private Integer id;
-    @DatabaseField(canBeNull = false, unique = true, columnName = "regiao_localizacao_pais", dataType = DataType.STRING, width = 50)
-    private String regiao_localizacao;
+    @DatabaseField(canBeNull = false, unique = true, columnName = "nomeRegiao", dataType = DataType.STRING, width = 50)
+    private String nomeRegiao;
 
-    public RegiaoVO(Integer id, String regiao_localizacao) {
+    public RegiaoVO(Integer id, String nomeRegiao) {
         this.id = id;
-        this.regiao_localizacao = regiao_localizacao;
+        this.nomeRegiao = nomeRegiao;
     }
 
     public RegiaoVO() {
@@ -28,17 +28,17 @@ public class RegiaoVO {
         this.id = id;
     }
 
-    public String getRegiao_localizacao() {
-        return regiao_localizacao;
+    public String getNomeRegiao() {
+        return nomeRegiao;
     }
 
-    public void setRegiao_localizacao(String regiao_localizacao) {
-        this.regiao_localizacao = regiao_localizacao;
+    public void setNomeRegiao(String nomeRegiao) {
+        this.nomeRegiao = nomeRegiao;
     }
 
     public void setRegiao_localizacao(Object regiao_localizacao) {
         try {
-            this.regiao_localizacao = String.valueOf(regiao_localizacao);
+            this.nomeRegiao = String.valueOf(regiao_localizacao);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -46,6 +46,6 @@ public class RegiaoVO {
 
     @Override
     public String toString() {
-        return "(" + id + ")" + " Regiao: " + regiao_localizacao;
+        return "(" + id + ")" + " Regiao: " + nomeRegiao;
     }
 }

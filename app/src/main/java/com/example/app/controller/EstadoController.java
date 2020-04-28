@@ -10,8 +10,10 @@ import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.bo.EstadoBO;
 import com.example.app.model.dao.EstadoDAO;
 import com.example.app.model.dao.PaisDAO;
+import com.example.app.model.dao.RegiaoDAO;
 import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
+import com.example.app.model.vo.RegiaoVO;
 import com.example.app.util.Constantes;
 import com.example.app.util.MetodoAuxiliar;
 import com.example.app.view.Cadastro_EstadosPaises;
@@ -25,6 +27,7 @@ public class EstadoController {
     private EstadoVO e;
     private BaseDAO<EstadoVO> daoE;
     private BaseDAO<PaisVO> daoP;
+    private BaseDAO<RegiaoVO> daoR;
 
     private List<EstadoVO> listEstados;
     private List<PaisVO> listPais;
@@ -35,6 +38,7 @@ public class EstadoController {
         this.activity = activity;
         daoE = new EstadoDAO(this.activity, EstadoVO.class);
         daoP = new PaisDAO(this.activity, PaisVO.class);
+        daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
         this.configListView();
         this.configSpinner();
     }
@@ -53,18 +57,51 @@ public class EstadoController {
         this.addClickLongo();
     }
 
+    private void addRegiao() {
+        if (daoR.cadastrar(new RegiaoVO(1, "America do Norte")) != null) {
+            Log.i("Cadastro Regiao", "1, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(2, "America do Central")) != null) {
+            Log.i("Cadastro Regiao", "2, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(3, "America do Sul")) != null) {
+            Log.i("Cadastro Regiao", "3, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(4, "Europa")) != null) {
+            Log.i("Cadastro Regiao", "4, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(5, "Asia")) != null) {
+            Log.i("Cadastro Regiao", "5, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(6, "Oceania")) != null) {
+            Log.i("Cadastro Regiao", "6, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+    }
+
     private void addPaises() {
-        if (daoP.cadastrar(new PaisVO(1, "Brasil")) != null) {
+        if (daoP.cadastrar(new PaisVO(1, "Brasil", "Brasilia", e.getPaisVO().getRegiaoVO())) != null) {
             Log.i("Cadastro Pais", "1, Cadsatrado");
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
-        if (daoP.cadastrar(new PaisVO(2, "Argentina")) != null) {
+        if (daoP.cadastrar(new PaisVO(2, "Argentina", "Buenos Aires", e.getPaisVO().getRegiaoVO())) != null) {
             Log.i("Cadastro Pais", "2, Cadsatrado");
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
-        if (daoP.cadastrar(new PaisVO(3, "Uruguai")) != null) {
+        if (daoP.cadastrar(new PaisVO(3, "Uruguai", "Montevideo", e.getPaisVO().getRegiaoVO())) != null) {
             Log.i("Cadastro Pais", "3, Cadsatrado");
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
@@ -72,6 +109,7 @@ public class EstadoController {
     }
 
     private void configSpinner() {
+        this.addRegiao();
         this.addPaises();
         listPais = (List<PaisVO>) daoP.consultarColuna(Constantes.DB_PAIS_NOME);
         adapterPaises = new ArrayAdapter<>(
