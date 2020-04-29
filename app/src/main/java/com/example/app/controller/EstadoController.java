@@ -10,7 +10,6 @@ import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.bo.EstadoBO;
 import com.example.app.model.dao.EstadoDAO;
 import com.example.app.model.dao.PaisDAO;
-import com.example.app.model.dao.RegiaoDAO;
 import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
 import com.example.app.model.vo.RegiaoVO;
@@ -27,10 +26,7 @@ public class EstadoController {
     private EstadoVO e;
     private BaseDAO<EstadoVO> daoE;
     private BaseDAO<PaisVO> daoP;
-    private BaseDAO<RegiaoVO> daoR;
 
-    private List<EstadoVO> listEstados;
-    private List<PaisVO> listPais;
     private ArrayAdapter<PaisVO> adapterPaises;
     private ArrayAdapter<EstadoVO> adapterEstados;
 
@@ -38,23 +34,10 @@ public class EstadoController {
         this.activity = activity;
         daoE = new EstadoDAO(this.activity, EstadoVO.class);
         daoP = new PaisDAO(this.activity, PaisVO.class);
-        daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
+//        this.addPaises();
         this.configListView();
         this.configSpinner();
-    }
-
-    private void configListView() {
-        listEstados = (List<EstadoVO>) daoE.consultarTodos();
-        adapterEstados = new ArrayAdapter<>(
-                activity,
-                android.R.layout.simple_list_item_1,
-                listEstados
-        );
-        adapterEstados.notifyDataSetChanged();
-        activity.getLvEstados().setAdapter(adapterEstados);
-
-        this.addClickCurto();
-        this.addClickLongo();
+        this.refreshData();
     }
 
     private void addPaises() {
@@ -73,11 +56,29 @@ public class EstadoController {
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
         }
+        if (daoP.cadastrar(new PaisVO(4, "Japao", "Toquio", new RegiaoVO(5, "Asia"))) != null) {
+            Log.i("Cadastro Pais", "4, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS PAISES EM 'addPaises()'");
+        }
+    }
+
+    private void configListView() {
+        List<EstadoVO> listEstados = (List<EstadoVO>) daoE.consultarTodos();
+        adapterEstados = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_list_item_1,
+                listEstados
+        );
+        adapterEstados.notifyDataSetChanged();
+        activity.getLvEstados().setAdapter(adapterEstados);
+
+        this.addClickCurto();
+        this.addClickLongo();
     }
 
     private void configSpinner() {
-        this.addPaises();
-        listPais = (List<PaisVO>) daoP.consultarColunas(Constantes.DB_PAIS_NOME, Constantes.DB_PAIS_CAPITAL);
+        List<PaisVO> listPais = (List<PaisVO>) daoP.consultarColunas(Constantes.DB_PAIS_NOME, Constantes.DB_PAIS_CAPITAL);
         adapterPaises = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_dropdown_item,
@@ -141,6 +142,7 @@ public class EstadoController {
             adapterEstados.add(estadoCadastrado);
         } else {
             Toast.makeText(activity, "Erro ao Cadastrar:" + e.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("DB_INSERT_ERRO", "Cadastro: " + getResultadoForm().toString());
         }
         Log.i("Cadastrando", "Cadastrando: " + getResultadoForm().toString());
         Toast.makeText(activity, "Estado Cadastrado:" + e.toString(), Toast.LENGTH_SHORT).show();
@@ -165,7 +167,7 @@ public class EstadoController {
         alerta.setNegativeButton("Não", (dialog, which) -> this.e = null);
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
-            int i = daoE.excluir(this.e);
+            int i = daoE.excluirPorID(this.e);
             Toast.makeText(activity, "Estado Excluido:" + e.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
             Log.i("Excluindo", "Excluido");
             adapterEstados.remove(this.e);
@@ -211,6 +213,7 @@ public class EstadoController {
         activity.getEditNomeEstado().setText("");
         activity.getSpinnerPaises().setSelection(-1);
         this.clearFocus();
+        this.refreshData();
         MetodoAuxiliar.hideKeyboard(activity);
     }
 
@@ -226,4 +229,8 @@ public class EstadoController {
         this.activity.finish();
     }
 
+    private void refreshData() {
+        this.adapterPaises.notifyDataSetChanged();
+        this.adapterEstados.notifyDataSetChanged();
+    }
 }

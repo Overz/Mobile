@@ -35,22 +35,9 @@ public class PaisController {
         daoP = new PaisDAO(this.activity, PaisVO.class);
         daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
         this.addRegiao();
-        this.configSpinner();
         this.configListView();
-    }
-
-    private void configListView() {
-        listPais = (List<PaisVO>) daoP.consultarTodos();
-        adapterPais = new ArrayAdapter<>(
-                activity,
-                android.R.layout.simple_list_item_1,
-                listPais
-        );
-        adapterPais.notifyDataSetChanged();
-        activity.getLvPais().setAdapter(adapterPais);
-
-        this.addClickCurto();
-        this.addClickLongo();
+        this.configSpinner();
+        this.refreshData();
     }
 
     private void addRegiao() {
@@ -84,6 +71,20 @@ public class PaisController {
         } else {
             Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
         }
+    }
+
+    private void configListView() {
+        listPais = (List<PaisVO>) daoP.consultarTodos();
+        adapterPais = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_list_item_1,
+                listPais
+        );
+        adapterPais.notifyDataSetChanged();
+        activity.getLvPais().setAdapter(adapterPais);
+
+        this.addClickCurto();
+        this.addClickLongo();
     }
 
     private void configSpinner() {
@@ -151,6 +152,7 @@ public class PaisController {
             adapterPais.add(paisCadastrado);
         } else {
             Toast.makeText(activity, "Erro ao Cadastrar:" + p.toString(), Toast.LENGTH_SHORT).show();
+            Log.e("DB_INSERT_ERRO", "Cadastro: " + getResultadoForm().toString());
         }
         Log.i("Cadastrando", "Cadastrando: " + getResultadoForm().toString());
         Toast.makeText(activity, "Pais Cadastrado:" + p.toString(), Toast.LENGTH_SHORT).show();
@@ -175,7 +177,7 @@ public class PaisController {
         alerta.setNegativeButton("Não", (dialog, which) -> this.p = null);
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
-            int i = daoP.excluir(this.p);
+            int i = daoP.excluirPorID(this.p);
             Toast.makeText(activity, "Estado Excluido:" + p.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
             Log.i("Excluindo", "Excluido");
             adapterPais.remove(this.p);
@@ -189,11 +191,7 @@ public class PaisController {
             activity.getEditNomePais().setText(p.getNomePais());
             activity.getEditCapital().setText(p.getCapital());
             try {
-                activity.getSpinnerPais().setSelection(
-                        Integer.parseUnsignedInt(
-                                String.valueOf(p.getRegiaoVO())
-                        )
-                );
+                activity.getSpinnerPais().setSelection(Integer.parseInt(p.getRegiaoVO().getNomeRegiao()));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -205,11 +203,10 @@ public class PaisController {
     @NotNull
     private PaisVO getResultadoForm() {
         PaisVO pais = new PaisVO();
+        RegiaoVO regiao = new RegiaoVO();
         pais.setNomePais(activity.getEditNomePais().getText().toString());
         pais.setCapital(activity.getEditCapital().getText().toString());
-        pais.getRegiaoVO().setNomeRegiao(activity.getSpinnerPais().getSelectedItem().toString());
-//        String test = activity.getSpinnerPais().getSelectedItem().toString();
-//        System.out.println(test);
+        pais.setRegiaoVO((RegiaoVO) activity.getSpinnerPais().getSelectedItem());
         return pais;
     }
 
@@ -236,6 +233,11 @@ public class PaisController {
             activity.getEditCapital().requestFocus();
             return false;
         }
+        if (!PaisBO.validarRegiao(p)) {
+            activity.getEditCapital().setError("Erro ao Validar Regiao do Pais");
+            activity.getSpinnerPais().requestFocus();
+            return false;
+        }
         return true;
     }
 
@@ -258,4 +260,8 @@ public class PaisController {
         this.activity.finish();
     }
 
+    private void refreshData() {
+        this.adapterPais.notifyDataSetChanged();
+        this.adapterSpinnerRegiao.notifyDataSetChanged();
+    }
 }

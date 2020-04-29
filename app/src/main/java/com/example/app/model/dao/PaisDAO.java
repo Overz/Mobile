@@ -6,6 +6,8 @@ import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.banco.helpers.DaoHelper;
 import com.example.app.model.vo.PaisVO;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -88,6 +90,37 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
+    public Integer excluirID_e_Constraint(String... string) {
+        int i  = 0;
+        try {
+            i += getDao().executeRaw("ALTER TABLE " + string + " DROP CONSTRAINT " + string);
+            i += getDao().executeRaw("AKTER TABLE " + string + " DROP PRIMARY KEY");
+            return i;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "\n"
+                    + e.getCause() + "\n"
+                    + e.getNextException() + "\n"
+                    + e.getClass().getSimpleName()
+            );
+        }
+        return null;
+    }
+
+    @Override
+    public Integer excluirPorID(@NotNull PaisVO object) {
+        try {
+            return getDao().deleteById(object.getId());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "\n"
+                    + e.getCause() + "\n"
+                    + e.getNextException() + "\n"
+                    + e.getClass().getSimpleName()
+            );
+        }
+        return null;
+    }
+
+    @Override
     public List<PaisVO> consultarColunas(String... column) {
         try {
             return getDao().queryBuilder().selectColumns(column).query();
@@ -104,7 +137,7 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     @Override
     public Integer inserirDadosEmColunas(String... string) {
         try {
-            return getDao().executeRaw("INSERT INTO " + string + " VALUES ("+string+")");
+            return getDao().executeRaw("INSERT INTO " + string + " VALUES (" + string + ")");
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"

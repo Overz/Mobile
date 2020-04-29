@@ -6,12 +6,14 @@ public interface BaseDAO<T> {
 
     /**
      * Método para consultar tudo o que há no db;
+     *
      * @return ArrayList<?>
      */
     List<?> consultarTodos();
 
     /**
      * Consulta algo especifico através de um id;
+     *
      * @param id: int
      * @return object
      */
@@ -19,6 +21,7 @@ public interface BaseDAO<T> {
 
     /**
      * Método para cadastrar;
+     *
      * @param object : Object
      * @return object
      */
@@ -26,6 +29,7 @@ public interface BaseDAO<T> {
 
     /**
      * Método para altera/atualizar;
+     *
      * @param object: Object
      * @return object
      */
@@ -33,17 +37,44 @@ public interface BaseDAO<T> {
 
     /**
      * Método para excluir;
+     *
      * @param object : Int array
      * @return true/false
      */
     Integer excluir(T object);
 
     /**
+     * Método para dar um drop no objeto com constraint(Foreing Key)
+     * Utilização de 'Varargs': Array Strings
+     *
+     * @param string: String...
+     * @return Integer
+     */
+    Integer excluirID_e_Constraint(String... string);
+
+    /**
+     * Método para exlcluir um campo com da tabela por ID
+     *
+     * @param object: T
+     * @return Integer
+     */
+    Integer excluirPorID(T object);
+
+    /**
      * Método para consulta coluna especifica
+     * Utilização de 'Varargs': Array Strings
+     *
      * @param string: Query
      * @return List
      */
     List<?> consultarColunas(String... string);
 
+    /**
+     * Método para inserir Dados em uma coluna especifica
+     * Utilização de 'Varargs': Array Strings
+     *
+     * @param string: Strings...
+     * @return Integer
+     */
     Integer inserirDadosEmColunas(String... string);
 }

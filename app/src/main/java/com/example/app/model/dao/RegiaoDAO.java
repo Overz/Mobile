@@ -88,6 +88,25 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
     }
 
     @Override
+    public Integer excluirID_e_Constraint(String... string) {
+        return null;
+    }
+
+    @Override
+    public Integer excluirPorID(RegiaoVO object) {
+        try {
+            return getDao().deleteById(object.getId());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "\n"
+                    + e.getCause() + "\n"
+                    + e.getNextException() + "\n"
+                    + e.getClass().getSimpleName()
+            );
+        }
+        return null;
+    }
+
+    @Override
     public List<?> consultarColunas(String... string) {
         try {
             return getDao().queryBuilder().selectColumns(string).query();

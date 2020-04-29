@@ -17,6 +17,7 @@ public class Constantes {
     public static final String DB_PAIS_REGIAO = "regiaoPais";
 
 
+    public static final String DB_REGIAO_ID = "idRegiao";
     public static final String DB_REGIAO_LOCALIDADE = "nomeRegiao";
 
     public static final String DB_ESTADO_ID = "idEstado";
