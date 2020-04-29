@@ -12,7 +12,6 @@ import com.example.app.model.dao.PaisDAO;
 import com.example.app.model.dao.RegiaoDAO;
 import com.example.app.model.vo.PaisVO;
 import com.example.app.model.vo.RegiaoVO;
-import com.example.app.util.Constantes;
 import com.example.app.util.MetodoAuxiliar;
 import com.example.app.view.CadastroPais;
 
@@ -27,16 +26,17 @@ public class PaisController {
     private BaseDAO<RegiaoVO> daoR;
 
     private List<PaisVO> listPais;
-    private List<RegiaoVO> listRegiaoPais;
+    private List<RegiaoVO> listRegiao;
     private ArrayAdapter<PaisVO> adapterPais;
-    private ArrayAdapter<RegiaoVO> adapterRegiaoPais;
+    private ArrayAdapter<RegiaoVO> adapterSpinnerRegiao;
 
     public PaisController(CadastroPais activity) {
         this.activity = activity;
         daoP = new PaisDAO(this.activity, PaisVO.class);
         daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
-        this.configListView();
+        this.addRegiao();
         this.configSpinner();
+        this.configListView();
     }
 
     private void configListView() {
@@ -53,15 +53,48 @@ public class PaisController {
         this.addClickLongo();
     }
 
+    private void addRegiao() {
+        if (daoR.cadastrar(new RegiaoVO(1, "America do Norte")) != null) {
+            Log.i("Cadastro Regiao", "1, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(2, "America do Central")) != null) {
+            Log.i("Cadastro Regiao", "2, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(3, "America do Sul")) != null) {
+            Log.i("Cadastro Regiao", "3, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(4, "Europa")) != null) {
+            Log.i("Cadastro Regiao", "4, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(5, "Asia")) != null) {
+            Log.i("Cadastro Regiao", "5, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+        if (daoR.cadastrar(new RegiaoVO(6, "Oceania")) != null) {
+            Log.i("Cadastro Regiao", "6, Cadsatrado");
+        } else {
+            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
+        }
+    }
+
     private void configSpinner() {
-        listRegiaoPais = (List<RegiaoVO>) daoR.consultarColunas(Constantes.DB_PAIS_NOME, Constantes.DB_PAIS_CAPITAL);
-        adapterRegiaoPais = new ArrayAdapter<>(
+        listRegiao = (List<RegiaoVO>) daoR.consultarTodos();
+        adapterSpinnerRegiao = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_item,
-                listRegiaoPais
+                listRegiao
         );
-        adapterPais.notifyDataSetChanged();
-        activity.getSpinnerPais().setAdapter(adapterRegiaoPais);
+        adapterSpinnerRegiao.notifyDataSetChanged();
+        activity.getSpinnerPais().setAdapter(adapterSpinnerRegiao);
     }
 
     private void addClickCurto() {
@@ -117,7 +150,7 @@ public class PaisController {
         if (paisCadastrado != null) {
             adapterPais.add(paisCadastrado);
         } else {
-            Toast.makeText(activity, "Erro ao Cadastrar:" + p.toString2(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Erro ao Cadastrar:" + p.toString(), Toast.LENGTH_SHORT).show();
         }
         Log.i("Cadastrando", "Cadastrando: " + getResultadoForm().toString());
         Toast.makeText(activity, "Pais Cadastrado:" + p.toString(), Toast.LENGTH_SHORT).show();
@@ -130,20 +163,20 @@ public class PaisController {
 
         adapterPais.notifyDataSetChanged();
         int i = daoP.alterar(this.p);
-        Toast.makeText(activity, "Pais Alterado:" + p.toString2() + "\nLinhas Alteradas: " + i, Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, "Pais Alterado:" + p.toString() + "\nLinhas Alteradas: " + i, Toast.LENGTH_SHORT).show();
         Log.i("Alterando", "Alterando: " + newPais.toString());
     }
 
     private void excluirAction() {
         AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
         alerta.setTitle("Excluindo Carro");
-        alerta.setMessage("Deseja Realmente Excluir: '" + p.toString2() + "' Desta Lista?");
+        alerta.setMessage("Deseja Realmente Excluir: '" + p.toString() + "' Desta Lista?");
         alerta.setIcon(android.R.drawable.ic_menu_delete);
         alerta.setNegativeButton("Não", (dialog, which) -> this.p = null);
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
             int i = daoP.excluir(this.p);
-            Toast.makeText(activity, "Estado Excluido:" + p.toString2() + "\ni: " + i, Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity, "Estado Excluido:" + p.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
             Log.i("Excluindo", "Excluido");
             adapterPais.remove(this.p);
             this.p = null;
@@ -174,7 +207,9 @@ public class PaisController {
         PaisVO pais = new PaisVO();
         pais.setNomePais(activity.getEditNomePais().getText().toString());
         pais.setCapital(activity.getEditCapital().getText().toString());
-        pais.getRegiaoVO().setRegiao_localizacao(activity.getSpinnerPais().getSelectedItem());
+        pais.getRegiaoVO().setNomeRegiao(activity.getSpinnerPais().getSelectedItem().toString());
+//        String test = activity.getSpinnerPais().getSelectedItem().toString();
+//        System.out.println(test);
         return pais;
     }
 

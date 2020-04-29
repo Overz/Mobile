@@ -57,41 +57,7 @@ public class EstadoController {
         this.addClickLongo();
     }
 
-    private void addRegiao() {
-        if (daoR.cadastrar(new RegiaoVO(1, "America do Norte")) != null) {
-            Log.i("Cadastro Regiao", "1, Cadsatrado");
-        } else {
-            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR OS REGIAO EM 'addRegiao()'");
-        }
-        if (daoR.cadastrar(new RegiaoVO(2, "America do Central")) != null) {
-            Log.i("Cadastro Regiao", "2, Cadsatrado");
-        } else {
-            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
-        }
-        if (daoR.cadastrar(new RegiaoVO(3, "America do Sul")) != null) {
-            Log.i("Cadastro Regiao", "3, Cadsatrado");
-        } else {
-            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
-        }
-        if (daoR.cadastrar(new RegiaoVO(4, "Europa")) != null) {
-            Log.i("Cadastro Regiao", "4, Cadsatrado");
-        } else {
-            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
-        }
-        if (daoR.cadastrar(new RegiaoVO(5, "Asia")) != null) {
-            Log.i("Cadastro Regiao", "5, Cadsatrado");
-        } else {
-            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
-        }
-        if (daoR.cadastrar(new RegiaoVO(6, "Oceania")) != null) {
-            Log.i("Cadastro Regiao", "6, Cadsatrado");
-        } else {
-            Log.e("DB_CREATE_ERRO", "ERRO AO CRIAR A REGIAO EM 'addRegiao()'");
-        }
-    }
-
     private void addPaises() {
-//        this.addRegiao();
         if (daoP.cadastrar(new PaisVO(1, "Brasil", "Brasilia", new RegiaoVO(1, "America do Sul"))) != null) {
             Log.i("Cadastro Pais", "1, Cadsatrado");
         } else {

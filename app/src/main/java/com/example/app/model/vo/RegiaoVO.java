@@ -47,14 +47,6 @@ public class RegiaoVO {
         this.nomeRegiao = nomeRegiao;
     }
 
-    public void setRegiao_localizacao(Object regiao_localizacao) {
-        try {
-            this.nomeRegiao = String.valueOf(regiao_localizacao);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public Collection<PaisVO> getCollectionPaises() {
         return collectionPaises;
     }
@@ -65,6 +57,6 @@ public class RegiaoVO {
 
     @Override
     public String toString() {
-        return "Regiao: " + nomeRegiao + " (" + id + ")" ;
+        return this.nomeRegiao + " (" + this.id + ")" ;
     }
 }

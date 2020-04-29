@@ -94,7 +94,7 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
-//                    + e.getNextException() + "\n"
+                    + e.getNextException() + "\n"
                     + e.getClass().getSimpleName()
             );
         }
@@ -114,4 +114,5 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
         }
         return null;
     }
+
 }

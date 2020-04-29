@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> {
+
     public RegiaoDAO(Context c, Class className) {
         super(c, className);
     }
@@ -113,4 +114,5 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
         }
         return null;
     }
+
 }

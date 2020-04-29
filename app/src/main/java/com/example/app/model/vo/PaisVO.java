@@ -81,13 +81,9 @@ public class PaisVO {
         this.collectionEstados = collectionEstados;
     }
 
-    public String toString2() {
-        return this.nomePais;
-    }
-
     @NotNull
     @Override
     public String toString() {
-        return "Pais: " + this.nomePais + "(" + this.capital + ")";
+        return this.nomePais + "(" + this.capital + ")";
     }
 }
