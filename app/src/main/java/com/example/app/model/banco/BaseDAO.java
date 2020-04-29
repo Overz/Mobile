@@ -43,7 +43,7 @@ public interface BaseDAO<T> {
      * @param string: Query
      * @return List
      */
-    List<?> consultarColuna(String string);
+    List<?> consultarColunas(String... string);
 
-    Integer inserirDadosEmColuna(String table, String value);
+    Integer inserirDadosEmColunas(String... string);
 }

@@ -88,7 +88,7 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
     }
 
     @Override
-    public List<EstadoVO> consultarColuna(String string) {
+    public List<EstadoVO> consultarColunas(String... string) {
         try {
             return getDao().queryBuilder().selectColumns(string).query();
         } catch (SQLException e) {
@@ -102,7 +102,7 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
     }
 
     @Override
-    public Integer inserirDadosEmColuna(String table, String value) {
+    public Integer inserirDadosEmColunas(String... string) {
         return null;
     }
 }

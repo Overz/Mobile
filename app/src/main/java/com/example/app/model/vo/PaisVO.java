@@ -38,28 +38,6 @@ public class PaisVO {
         this.regiaoVO = regiaoVO;
     }
 
-    public PaisVO(Integer id, String nomePais, String capital) {
-        this.id = id;
-        this.nomePais = nomePais;
-        this.capital = capital;
-    }
-
-    public PaisVO(Integer id, String nomePais) {
-        this.id = id;
-        this.nomePais = nomePais;
-    }
-
-    public PaisVO(String nomePais, String capital, RegiaoVO regiaoVO) {
-        this.nomePais = nomePais;
-        this.capital = capital;
-        this.regiaoVO = regiaoVO;
-    }
-
-    public PaisVO(String nomePais, RegiaoVO regiaoVO) {
-        this.nomePais = nomePais;
-        this.regiaoVO = regiaoVO;
-    }
-
     public PaisVO() {
     }
 

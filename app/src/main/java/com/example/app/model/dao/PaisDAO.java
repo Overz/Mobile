@@ -88,13 +88,13 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public List<PaisVO> consultarColuna(String string) {
+    public List<PaisVO> consultarColunas(String... column) {
         try {
-            return getDao().queryBuilder().selectColumns(string).query();
+            return getDao().queryBuilder().selectColumns(column).query();
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
-                    + e.getNextException() + "\n"
+//                    + e.getNextException() + "\n"
                     + e.getClass().getSimpleName()
             );
         }
@@ -102,9 +102,9 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public Integer inserirDadosEmColuna(String table, String value) {
+    public Integer inserirDadosEmColunas(String... string) {
         try {
-            return getDao().executeRaw("INSERT INTO " + table + " VALUES ("+value+")");
+            return getDao().executeRaw("INSERT INTO " + string + " VALUES ("+string+")");
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"

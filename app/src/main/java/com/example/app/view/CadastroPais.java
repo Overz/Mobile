@@ -15,7 +15,7 @@ public class CadastroPais extends AppCompatActivity {
 
     private PaisController control;
 
-    private EditText editNomePais, editCapital;
+    private EditText editNomePais, editCapital /*, editRegiao*/;
     private Button btnVoltar, btnCadastrar, btnLimpar;
     private ListView lvPais;
     private Spinner spinnerPais;
@@ -31,6 +31,7 @@ public class CadastroPais extends AppCompatActivity {
     private void initialize() {
         this.editNomePais = findViewById(R.id.editNome_Pais);
         this.editCapital = findViewById(R.id.editCapital_Pais);
+//        this.editRegiao = findViewById(R.id.editRegiao);
         this.lvPais = findViewById(R.id.lvPaises);
         this.spinnerPais = findViewById(R.id.spinner_Paises);
         this.btnVoltar = findViewById(R.id.btnVoltar_Pais);
@@ -43,7 +44,7 @@ public class CadastroPais extends AppCompatActivity {
     private void onClickListener() {
         this.btnVoltar.setOnClickListener(v -> control.voltarAction());
         this.btnCadastrar.setOnClickListener(v -> control.cadastrarAction());
-        this.btnLimpar.setOnClickListener(v -> control.limparDadosAction());
+        this.btnLimpar.setOnClickListener(v -> control.limparFormAction());
     }
 
     public EditText getEditNomePais() {
@@ -53,6 +54,10 @@ public class CadastroPais extends AppCompatActivity {
     public EditText getEditCapital() {
         return editCapital;
     }
+
+//    public EditText getEditRegiao() {
+//        return editRegiao;
+//    }
 
     public Button getBtnVoltar() {
         return btnVoltar;

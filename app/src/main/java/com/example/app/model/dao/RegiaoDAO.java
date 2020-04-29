@@ -87,7 +87,7 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
     }
 
     @Override
-    public List<?> consultarColuna(String string) {
+    public List<?> consultarColunas(String... string) {
         try {
             return getDao().queryBuilder().selectColumns(string).query();
         } catch (SQLException e) {
@@ -101,9 +101,9 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
     }
 
     @Override
-    public Integer inserirDadosEmColuna(String table, String value) {
+    public Integer inserirDadosEmColunas(String... String) {
         try {
-            return getDao().executeRaw("INSERT INTO " + table + " VALUES ("+value+")");
+            return getDao().executeRaw("INSERT INTO " + String + " VALUES ("+String+")");
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"

@@ -12,6 +12,7 @@ import com.example.app.model.dao.PaisDAO;
 import com.example.app.model.dao.RegiaoDAO;
 import com.example.app.model.vo.PaisVO;
 import com.example.app.model.vo.RegiaoVO;
+import com.example.app.util.Constantes;
 import com.example.app.util.MetodoAuxiliar;
 import com.example.app.view.CadastroPais;
 
@@ -53,7 +54,7 @@ public class PaisController {
     }
 
     private void configSpinner() {
-        listRegiaoPais = (List<RegiaoVO>) daoR.consultarTodos();
+        listRegiaoPais = (List<RegiaoVO>) daoR.consultarColunas(Constantes.DB_PAIS_NOME, Constantes.DB_PAIS_CAPITAL);
         adapterRegiaoPais = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_item,
@@ -104,7 +105,7 @@ public class PaisController {
             this.editarAction(this.getResultadoForm());
         }
         if (this.validarCampos(this.getResultadoForm())) {
-            this.limparForm();
+            this.limparFormAction();
         }
         this.p = null;
         System.gc();
@@ -203,16 +204,11 @@ public class PaisController {
         return true;
     }
 
-    private void limparForm() {
+    public void limparFormAction() {
         activity.getEditNomePais().setText("");
         activity.getEditCapital().setText("");
         this.clearFocus();
         MetodoAuxiliar.hideKeyboard(activity);
-    }
-
-    public void limparDadosAction() {
-        activity.getSpinnerPais().setSelection(1);
-//        activity.getLvPais().removeAllViews();
     }
 
     private void clearFocus() {

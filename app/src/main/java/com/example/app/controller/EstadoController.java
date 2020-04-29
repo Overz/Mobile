@@ -111,7 +111,7 @@ public class EstadoController {
 
     private void configSpinner() {
         this.addPaises();
-        listPais = (List<PaisVO>) daoP.consultarColuna(Constantes.DB_PAIS_NOME);
+        listPais = (List<PaisVO>) daoP.consultarColunas(Constantes.DB_PAIS_NOME, Constantes.DB_PAIS_CAPITAL);
         adapterPaises = new ArrayAdapter<>(
                 activity,
                 android.R.layout.simple_spinner_dropdown_item,
@@ -246,12 +246,6 @@ public class EstadoController {
         activity.getSpinnerPaises().setSelection(-1);
         this.clearFocus();
         MetodoAuxiliar.hideKeyboard(activity);
-    }
-
-    private void limparDados() {
-        this.limparForm();
-        adapterEstados.clear();
-        adapterPaises.clear();
     }
 
     private void clearFocus() {
