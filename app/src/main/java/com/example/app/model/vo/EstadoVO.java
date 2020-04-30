@@ -32,19 +32,6 @@ public class EstadoVO {
         this.uf = uf;
     }
 
-    public EstadoVO(Integer id, String nomeEstado) {
-        this.id = id;
-        this.nomeEstado = nomeEstado;
-    }
-
-    public EstadoVO(String nomeEstado) {
-        this.nomeEstado = nomeEstado;
-    }
-
-    public EstadoVO(Integer id) {
-        this.id = id;
-    }
-
     public EstadoVO() {
     }
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.banco.helpers.DaoHelper;
 import com.example.app.model.vo.PaisVO;
+import com.j256.ormlite.stmt.Where;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -13,8 +14,11 @@ import java.util.List;
 
 public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
 
+    private EstadoDAO estadoDAO;
+
     public PaisDAO(Context c, Class className) {
         super(c, className);
+        estadoDAO = new EstadoDAO(c, className);
     }
 
     @Override
@@ -90,12 +94,9 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public Integer excluirID_e_Constraint(String... string) {
-        int i  = 0;
+    public Integer excluirPorID(@NotNull PaisVO object) {
         try {
-            i += getDao().executeRaw("ALTER TABLE " + string + " DROP CONSTRAINT " + string);
-            i += getDao().executeRaw("AKTER TABLE " + string + " DROP PRIMARY KEY");
-            return i;
+            return getDao().deleteById(object.getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
@@ -107,15 +108,11 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public Integer excluirPorID(@NotNull PaisVO object) {
+    public Where<PaisVO, Integer> excluirObjetoVinculado(PaisVO object) {
         try {
-            return getDao().deleteById(object.getId());
+            return getDao().deleteBuilder().where().eq("regiaoVO_id", object.getRegiaoVO().getId());
         } catch (SQLException e) {
-            System.out.println(e.getMessage() + "\n"
-                    + e.getCause() + "\n"
-                    + e.getNextException() + "\n"
-                    + e.getClass().getSimpleName()
-            );
+            e.printStackTrace();
         }
         return null;
     }

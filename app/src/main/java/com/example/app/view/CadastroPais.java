@@ -9,10 +9,12 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
+import com.example.app.controller.MainController;
 import com.example.app.controller.PaisController;
 
 public class CadastroPais extends AppCompatActivity {
 
+    private MainController mainController;
     private PaisController control;
 
     private EditText editNomePais, editCapital /*, editRegiao*/;
@@ -26,6 +28,38 @@ public class CadastroPais extends AppCompatActivity {
         setContentView(R.layout.activity_paises);
         this.initialize();
         control = new PaisController(this);
+        mainController = new MainController(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MainController.activityResumed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.control.refreshData();
+        MainController.activityResumed();
+        mainController.recreate(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainController.activityPaused();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MainController.activityPaused();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void initialize() {
@@ -45,6 +79,10 @@ public class CadastroPais extends AppCompatActivity {
         this.btnVoltar.setOnClickListener(v -> control.voltarAction());
         this.btnCadastrar.setOnClickListener(v -> control.cadastrarAction());
         this.btnLimpar.setOnClickListener(v -> control.limparFormAction());
+    }
+
+    public PaisController getControl() {
+        return control;
     }
 
     public EditText getEditNomePais() {

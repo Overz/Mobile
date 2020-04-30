@@ -7,15 +7,49 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
+import com.example.app.controller.MainController;
 
 import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
+    private MainController mainController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mainController = new MainController(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MainController.activityResumed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainController.activityResumed();
+        mainController.recreate(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainController.activityPaused();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MainController.activityPaused();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     public void onClick(@NotNull View view) {
@@ -47,4 +81,5 @@ public class MainActivity extends AppCompatActivity {
         }
         System.gc();
     }
+
 }

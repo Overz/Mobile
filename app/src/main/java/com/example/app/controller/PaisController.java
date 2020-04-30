@@ -8,8 +8,10 @@ import android.widget.Toast;
 import com.example.app.R;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.bo.PaisBO;
+import com.example.app.model.dao.EstadoDAO;
 import com.example.app.model.dao.PaisDAO;
 import com.example.app.model.dao.RegiaoDAO;
+import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
 import com.example.app.model.vo.RegiaoVO;
 import com.example.app.util.MetodoAuxiliar;
@@ -22,6 +24,7 @@ import java.util.List;
 public class PaisController {
     private CadastroPais activity;
     private PaisVO p;
+    private BaseDAO<EstadoVO> daoE;
     private BaseDAO<PaisVO> daoP;
     private BaseDAO<RegiaoVO> daoR;
 
@@ -32,6 +35,7 @@ public class PaisController {
 
     public PaisController(CadastroPais activity) {
         this.activity = activity;
+        daoE = new EstadoDAO(this.activity, EstadoVO.class);
         daoP = new PaisDAO(this.activity, PaisVO.class);
         daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
         this.addRegiao();
@@ -178,9 +182,12 @@ public class PaisController {
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
             int i = daoP.excluirPorID(this.p);
+
             Toast.makeText(activity, "Estado Excluido:" + p.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
             Log.i("Excluindo", "Excluido");
+
             adapterPais.remove(this.p);
+
             this.p = null;
         });
         alerta.show();
@@ -260,7 +267,7 @@ public class PaisController {
         this.activity.finish();
     }
 
-    private void refreshData() {
+    public void refreshData() {
         this.adapterPais.notifyDataSetChanged();
         this.adapterSpinnerRegiao.notifyDataSetChanged();
     }

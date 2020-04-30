@@ -5,6 +5,9 @@ import android.content.Context;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.banco.helpers.DaoHelper;
 import com.example.app.model.vo.EstadoVO;
+import com.j256.ormlite.stmt.Where;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -88,14 +91,23 @@ public class EstadoDAO extends DaoHelper<EstadoVO> implements BaseDAO<EstadoVO> 
     }
 
     @Override
-    public Integer excluirID_e_Constraint(String... string) {
+    public Integer excluirPorID(@NotNull EstadoVO object) {
+        try {
+            return getDao().deleteById(object.getId());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage() + "\n"
+                    + e.getCause() + "\n"
+                    + e.getNextException() + "\n"
+                    + e.getClass().getSimpleName()
+            );
+        }
         return null;
     }
 
     @Override
-    public Integer excluirPorID(EstadoVO object) {
+    public Where<EstadoVO, Integer> excluirObjetoVinculado(@NotNull EstadoVO object) {
         try {
-            return getDao().deleteById(object.getId());
+            return getDao().deleteBuilder().where().eq("paisVO_id", object.getPaisVO().getId());
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"

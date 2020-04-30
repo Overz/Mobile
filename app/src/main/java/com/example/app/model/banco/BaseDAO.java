@@ -1,5 +1,7 @@
 package com.example.app.model.banco;
 
+import com.j256.ormlite.stmt.Where;
+
 import java.util.List;
 
 public interface BaseDAO<T> {
@@ -44,21 +46,14 @@ public interface BaseDAO<T> {
     Integer excluir(T object);
 
     /**
-     * Método para dar um drop no objeto com constraint(Foreing Key)
-     * Utilização de 'Varargs': Array Strings
-     *
-     * @param string: String...
-     * @return Integer
-     */
-    Integer excluirID_e_Constraint(String... string);
-
-    /**
      * Método para exlcluir um campo com da tabela por ID
      *
      * @param object: T
      * @return Integer
      */
     Integer excluirPorID(T object);
+
+    Where<T, Integer> excluirObjetoVinculado(T object);
 
     /**
      * Método para consulta coluna especifica

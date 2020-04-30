@@ -10,6 +10,7 @@ import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.bo.EstadoBO;
 import com.example.app.model.dao.EstadoDAO;
 import com.example.app.model.dao.PaisDAO;
+import com.example.app.model.dao.RegiaoDAO;
 import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
 import com.example.app.model.vo.RegiaoVO;
@@ -24,6 +25,7 @@ import java.util.List;
 public class EstadoController {
     private Cadastro_EstadosPaises activity;
     private EstadoVO e;
+    private BaseDAO<RegiaoVO> daoR;
     private BaseDAO<EstadoVO> daoE;
     private BaseDAO<PaisVO> daoP;
 
@@ -34,10 +36,33 @@ public class EstadoController {
         this.activity = activity;
         daoE = new EstadoDAO(this.activity, EstadoVO.class);
         daoP = new PaisDAO(this.activity, PaisVO.class);
-//        this.addPaises();
+        daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
+        this.addEstados();
+        this.addPaises();
         this.configListView();
         this.configSpinner();
         this.refreshData();
+    }
+
+    private void addEstados() {
+        RegiaoVO rCadastrado;
+        PaisVO pCadastrado;
+        EstadoVO eCadastrado;
+
+        try {
+            rCadastrado = daoR.cadastrar(new RegiaoVO(1, "_regiao_teste"));
+            pCadastrado = daoP.cadastrar(new PaisVO(1, "_nome_pais_", "_nome_capital_", rCadastrado));
+            eCadastrado = daoE.cadastrar(new EstadoVO(1, "_nome_estado_", "TS", pCadastrado));
+
+            if (rCadastrado != null && pCadastrado != null && eCadastrado != null) {
+                System.out.println("Dados de Teste Cadastrados");
+                Log.i("Cadastrado", "Dados de: Estado, Pais, Regiao, cadastrados");
+            }
+        } catch (Exception e) {
+            Log.e("DB_CREATE_ERRO", "Erro ao Cadastrar os Dados no Sistema");
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
+        }
     }
 
     private void addPaises() {
@@ -229,8 +254,19 @@ public class EstadoController {
         this.activity.finish();
     }
 
-    private void refreshData() {
+    public void refreshData() {
         this.adapterPaises.notifyDataSetChanged();
         this.adapterEstados.notifyDataSetChanged();
     }
+
+    public boolean deletarTeste() {
+        if (MainController.isActivityVisible()) {
+            EstadoVO estadoExclusao = new EstadoVO();
+            daoE.excluirObjetoVinculado(this.e);
+            this.refreshData();
+            return true;
+        }
+        return false;
+    }
+
 }

@@ -12,9 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
 import com.example.app.controller.EstadoController;
+import com.example.app.controller.MainController;
 
 public class Cadastro_EstadosPaises extends AppCompatActivity {
 
+    private MainController mainController;
     private EstadoController control;
 
     private Button btnCadastrar, btnVoltar;
@@ -29,6 +31,38 @@ public class Cadastro_EstadosPaises extends AppCompatActivity {
         setContentView(R.layout.activity_estados);
         this.initialize();
         control = new EstadoController(this);
+        mainController = new MainController(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        MainController.activityResumed();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.control.refreshData();
+        MainController.activityResumed();
+        mainController.recreate(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MainController.activityPaused();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        MainController.activityPaused();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void initialize() {
@@ -51,6 +85,18 @@ public class Cadastro_EstadosPaises extends AppCompatActivity {
             it = new Intent(this, CadastroPais.class);
             startActivity(it);
         });
+    }
+
+    public EstadoController getControl() {
+        return control;
+    }
+
+    public Button getBtnCadastrar() {
+        return btnCadastrar;
+    }
+
+    public Button getBtnVoltar() {
+        return btnVoltar;
     }
 
     public EditText getEditNomeEstado() {
