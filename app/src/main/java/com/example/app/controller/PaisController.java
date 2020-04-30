@@ -8,10 +8,8 @@ import android.widget.Toast;
 import com.example.app.R;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.bo.PaisBO;
-import com.example.app.model.dao.EstadoDAO;
 import com.example.app.model.dao.PaisDAO;
 import com.example.app.model.dao.RegiaoDAO;
-import com.example.app.model.vo.EstadoVO;
 import com.example.app.model.vo.PaisVO;
 import com.example.app.model.vo.RegiaoVO;
 import com.example.app.util.MetodoAuxiliar;
@@ -24,7 +22,6 @@ import java.util.List;
 public class PaisController {
     private CadastroPais activity;
     private PaisVO p;
-    private BaseDAO<EstadoVO> daoE;
     private BaseDAO<PaisVO> daoP;
     private BaseDAO<RegiaoVO> daoR;
 
@@ -35,7 +32,6 @@ public class PaisController {
 
     public PaisController(CadastroPais activity) {
         this.activity = activity;
-        daoE = new EstadoDAO(this.activity, EstadoVO.class);
         daoP = new PaisDAO(this.activity, PaisVO.class);
         daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
         this.addRegiao();
@@ -158,6 +154,7 @@ public class PaisController {
             Toast.makeText(activity, "Erro ao Cadastrar:" + p.toString(), Toast.LENGTH_SHORT).show();
             Log.e("DB_INSERT_ERRO", "Cadastro: " + getResultadoForm().toString());
         }
+        this.refreshData();
         Log.i("Cadastrando", "Cadastrando: " + getResultadoForm().toString());
         Toast.makeText(activity, "Pais Cadastrado:" + p.toString(), Toast.LENGTH_SHORT).show();
     }
@@ -167,8 +164,8 @@ public class PaisController {
         this.p.setCapital(newPais.getCapital());
         this.p.setRegiaoVO(newPais.getRegiaoVO());
 
-        adapterPais.notifyDataSetChanged();
         int i = daoP.alterar(this.p);
+        this.refreshData();
         Toast.makeText(activity, "Pais Alterado:" + p.toString() + "\nLinhas Alteradas: " + i, Toast.LENGTH_SHORT).show();
         Log.i("Alterando", "Alterando: " + newPais.toString());
     }
@@ -181,13 +178,14 @@ public class PaisController {
         alerta.setNegativeButton("Não", (dialog, which) -> this.p = null);
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
-            int i = daoP.excluirPorID(this.p);
+            int i = daoP.excluirPorID(this.p.getId());
 
             Toast.makeText(activity, "Estado Excluido:" + p.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
             Log.i("Excluindo", "Excluido");
 
             adapterPais.remove(this.p);
 
+            this.refreshData();
             this.p = null;
         });
         alerta.show();
@@ -210,21 +208,28 @@ public class PaisController {
     @NotNull
     private PaisVO getResultadoForm() {
         PaisVO pais = new PaisVO();
-        RegiaoVO regiao = new RegiaoVO();
         pais.setNomePais(activity.getEditNomePais().getText().toString());
         pais.setCapital(activity.getEditCapital().getText().toString());
         pais.setRegiaoVO((RegiaoVO) activity.getSpinnerPais().getSelectedItem());
         return pais;
     }
 
+    /**
+     * Suposto teste para pegar um item do spinner, comparar
+     * e settar o valor referente ao VO selecionado
+     */
     private void teste() {
-        String compareValue = (String) activity.getSpinnerPais().getSelectedItem();
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
-                activity, R.array.select_state, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        activity.getSpinnerPais().setAdapter(adapter);
+        PaisVO compareValue = (PaisVO) activity.getSpinnerPais().getSelectedItem();
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+//                activity, R.array.select_state, android.R.layout.simple_spinner_item);
+        adapterPais = new ArrayAdapter<>(
+                activity,
+                android.R.layout.simple_spinner_dropdown_item,
+                (List<PaisVO>) daoP.consultarTodos()
+        );
+        activity.getSpinnerPais().setAdapter(adapterPais);
         if (compareValue != null) {
-            int spinnerPosition = adapter.getPosition(compareValue);
+            int spinnerPosition = adapterPais.getPosition(compareValue);
             activity.getSpinnerPais().setSelection(spinnerPosition);
         }
     }
@@ -248,7 +253,7 @@ public class PaisController {
         return true;
     }
 
-    public void limparFormAction() {
+    private void limparFormAction() {
         activity.getEditNomePais().setText("");
         activity.getEditCapital().setText("");
         this.clearFocus();

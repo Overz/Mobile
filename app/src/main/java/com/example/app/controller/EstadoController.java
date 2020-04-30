@@ -37,14 +37,13 @@ public class EstadoController {
         daoE = new EstadoDAO(this.activity, EstadoVO.class);
         daoP = new PaisDAO(this.activity, PaisVO.class);
         daoR = new RegiaoDAO(this.activity, RegiaoVO.class);
-        this.addEstados();
         this.addPaises();
         this.configListView();
         this.configSpinner();
         this.refreshData();
     }
 
-    private void addEstados() {
+    private void addTeste() {
         RegiaoVO rCadastrado;
         PaisVO pCadastrado;
         EstadoVO eCadastrado;
@@ -169,6 +168,7 @@ public class EstadoController {
             Toast.makeText(activity, "Erro ao Cadastrar:" + e.toString(), Toast.LENGTH_SHORT).show();
             Log.e("DB_INSERT_ERRO", "Cadastro: " + getResultadoForm().toString());
         }
+        this.refreshData();
         Log.i("Cadastrando", "Cadastrando: " + getResultadoForm().toString());
         Toast.makeText(activity, "Estado Cadastrado:" + e.toString(), Toast.LENGTH_SHORT).show();
     }
@@ -178,8 +178,8 @@ public class EstadoController {
         this.e.setUf(newEstado.getUf());
         this.e.setPaisVO(newEstado.getPaisVO());
 
-        adapterEstados.notifyDataSetChanged();
         int i = daoE.alterar(this.e);
+        this.refreshData();
         Toast.makeText(activity, "Estado Alterado:" + e.toString() + "\nLinhas Alteradas: " + i, Toast.LENGTH_SHORT).show();
         Log.i("Alterando", "Alterando: " + newEstado.toString());
     }
@@ -192,10 +192,13 @@ public class EstadoController {
         alerta.setNegativeButton("Não", (dialog, which) -> this.e = null);
         // Deletar
         alerta.setPositiveButton("Sim", (dialog, which) -> {
-            int i = daoE.excluirPorID(this.e);
+            int i = daoE.excluirPorID(this.e.getId());
             Toast.makeText(activity, "Estado Excluido:" + e.toString() + "\ni: " + i, Toast.LENGTH_SHORT).show();
             Log.i("Excluindo", "Excluido");
+
             adapterEstados.remove(this.e);
+
+            this.refreshData();
             this.e = null;
         });
         alerta.show();
@@ -257,16 +260,6 @@ public class EstadoController {
     public void refreshData() {
         this.adapterPaises.notifyDataSetChanged();
         this.adapterEstados.notifyDataSetChanged();
-    }
-
-    public boolean deletarTeste() {
-        if (MainController.isActivityVisible()) {
-            EstadoVO estadoExclusao = new EstadoVO();
-            daoE.excluirObjetoVinculado(this.e);
-            this.refreshData();
-            return true;
-        }
-        return false;
     }
 
 }

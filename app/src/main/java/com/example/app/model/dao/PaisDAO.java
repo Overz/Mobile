@@ -5,9 +5,6 @@ import android.content.Context;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.banco.helpers.DaoHelper;
 import com.example.app.model.vo.PaisVO;
-import com.j256.ormlite.stmt.Where;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -94,25 +91,15 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
     }
 
     @Override
-    public Integer excluirPorID(@NotNull PaisVO object) {
+    public Integer excluirPorID(Integer id) {
         try {
-            return getDao().deleteById(object.getId());
+            return getDao().deleteById(id);
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
                     + e.getNextException() + "\n"
                     + e.getClass().getSimpleName()
             );
-        }
-        return null;
-    }
-
-    @Override
-    public Where<PaisVO, Integer> excluirObjetoVinculado(PaisVO object) {
-        try {
-            return getDao().deleteBuilder().where().eq("regiaoVO_id", object.getRegiaoVO().getId());
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return null;
     }
@@ -128,6 +115,11 @@ public class PaisDAO extends DaoHelper<PaisVO> implements BaseDAO<PaisVO> {
                     + e.getClass().getSimpleName()
             );
         }
+        return null;
+    }
+
+    @Override
+    public PaisVO consultarPorCampo(String... strings) {
         return null;
     }
 

@@ -8,15 +8,15 @@ import java.sql.SQLException;
 
 public class DaoHelper<T> {
 
-    private Class className;
     private static MyORMLiteHelper mInstance = null;
+    private Class className;
 
     public DaoHelper(Context c, Class className) {
         this.className = className;
-        if(mInstance==null) mInstance = new MyORMLiteHelper(c.getApplicationContext());
+        if (mInstance == null) mInstance = new MyORMLiteHelper(c.getApplicationContext());
     }
 
-    protected Dao<T, Integer> getDao(){
+    protected Dao<T, Integer> getDao() {
         try {
             return mInstance.getDao(className);
         } catch (SQLException e) {

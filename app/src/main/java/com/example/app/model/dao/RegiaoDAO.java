@@ -5,7 +5,6 @@ import android.content.Context;
 import com.example.app.model.banco.BaseDAO;
 import com.example.app.model.banco.helpers.DaoHelper;
 import com.example.app.model.vo.RegiaoVO;
-import com.j256.ormlite.stmt.Where;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -89,9 +88,9 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
     }
 
     @Override
-    public Integer excluirPorID(RegiaoVO object) {
+    public Integer excluirPorID(Integer id) {
         try {
-            return getDao().deleteById(object.getId());
+            return getDao().deleteById(id);
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"
@@ -99,11 +98,6 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
                     + e.getClass().getSimpleName()
             );
         }
-        return null;
-    }
-
-    @Override
-    public Where<RegiaoVO, Integer> excluirObjetoVinculado(RegiaoVO object) {
         return null;
     }
 
@@ -122,9 +116,14 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
     }
 
     @Override
+    public RegiaoVO consultarPorCampo(String... strings) {
+        return null;
+    }
+
+    @Override
     public Integer inserirDadosEmColunas(String... String) {
         try {
-            return getDao().executeRaw("INSERT INTO " + String + " VALUES ("+String+")");
+            return getDao().executeRaw("INSERT INTO " + String + " VALUES (" + String + ")");
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"

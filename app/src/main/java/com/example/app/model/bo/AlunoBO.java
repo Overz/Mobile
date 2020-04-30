@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class AlunoBO {
 
-    public static boolean validarNota(Double nota){
+    public static boolean validarNota(Double nota) {
         return nota != null && nota >= Constantes.MINIMO && nota <= Constantes.MAXIMO;
     }
 

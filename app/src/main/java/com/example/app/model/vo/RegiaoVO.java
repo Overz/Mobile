@@ -57,6 +57,6 @@ public class RegiaoVO {
 
     @Override
     public String toString() {
-        return this.nomeRegiao ;
+        return this.nomeRegiao;
     }
 }

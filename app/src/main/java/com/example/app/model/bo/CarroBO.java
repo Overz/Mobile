@@ -21,6 +21,7 @@ public class CarroBO {
 
     /**
      * Calcula a Media da Frota: (Km_Total / Combustivel_Total)
+     *
      * @param c
      * @return Double
      */
@@ -35,6 +36,7 @@ public class CarroBO {
 
     /**
      * Calcular a Media Individual: (Km / Combustivel);
+     *
      * @param c
      * @return Double
      */

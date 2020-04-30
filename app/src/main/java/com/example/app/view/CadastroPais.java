@@ -17,8 +17,8 @@ public class CadastroPais extends AppCompatActivity {
     private MainController mainController;
     private PaisController control;
 
-    private EditText editNomePais, editCapital /*, editRegiao*/;
-    private Button btnVoltar, btnCadastrar, btnLimpar;
+    private EditText editNomePais, editCapital;
+    private Button btnVoltar, btnCadastrar;
     private ListView lvPais;
     private Spinner spinnerPais;
 
@@ -35,6 +35,7 @@ public class CadastroPais extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         MainController.activityResumed();
+        control.refreshData();
     }
 
     @Override
@@ -42,35 +43,35 @@ public class CadastroPais extends AppCompatActivity {
         super.onResume();
         this.control.refreshData();
         MainController.activityResumed();
-        mainController.recreate(this);
     }
 
     @Override
     protected void onPause() {
-        super.onPause();
         MainController.activityPaused();
+        control.refreshData();
+        super.onPause();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         MainController.activityPaused();
+        control.refreshData();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        control.refreshData();
     }
 
     private void initialize() {
         this.editNomePais = findViewById(R.id.editNome_Pais);
         this.editCapital = findViewById(R.id.editCapital_Pais);
-//        this.editRegiao = findViewById(R.id.editRegiao);
         this.lvPais = findViewById(R.id.lvPaises);
         this.spinnerPais = findViewById(R.id.spinner_Paises);
         this.btnVoltar = findViewById(R.id.btnVoltar_Pais);
         this.btnCadastrar = findViewById(R.id.btnCadastrar_Pais);
-        this.btnLimpar = findViewById(R.id.btnLimparDados_Pais);
 
         this.onClickListener();
     }
@@ -78,7 +79,6 @@ public class CadastroPais extends AppCompatActivity {
     private void onClickListener() {
         this.btnVoltar.setOnClickListener(v -> control.voltarAction());
         this.btnCadastrar.setOnClickListener(v -> control.cadastrarAction());
-        this.btnLimpar.setOnClickListener(v -> control.limparFormAction());
     }
 
     public PaisController getControl() {
@@ -93,20 +93,12 @@ public class CadastroPais extends AppCompatActivity {
         return editCapital;
     }
 
-//    public EditText getEditRegiao() {
-//        return editRegiao;
-//    }
-
     public Button getBtnVoltar() {
         return btnVoltar;
     }
 
     public Button getBtnCadastrar() {
         return btnCadastrar;
-    }
-
-    public Button getBtnLimpar() {
-        return btnLimpar;
     }
 
     public ListView getLvPais() {

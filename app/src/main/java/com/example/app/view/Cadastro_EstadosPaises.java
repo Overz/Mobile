@@ -45,7 +45,6 @@ public class Cadastro_EstadosPaises extends AppCompatActivity {
         super.onResume();
         this.control.refreshData();
         MainController.activityResumed();
-        mainController.recreate(this);
     }
 
     @Override

@@ -1,7 +1,5 @@
 package com.example.app.model.banco;
 
-import com.j256.ormlite.stmt.Where;
-
 import java.util.List;
 
 public interface BaseDAO<T> {
@@ -48,12 +46,10 @@ public interface BaseDAO<T> {
     /**
      * Método para exlcluir um campo com da tabela por ID
      *
-     * @param object: T
+     * @param id: Integer
      * @return Integer
      */
-    Integer excluirPorID(T object);
-
-    Where<T, Integer> excluirObjetoVinculado(T object);
+    Integer excluirPorID(Integer id);
 
     /**
      * Método para consulta coluna especifica
@@ -63,6 +59,8 @@ public interface BaseDAO<T> {
      * @return List
      */
     List<?> consultarColunas(String... string);
+
+    T consultarPorCampo(String... strings);
 
     /**
      * Método para inserir Dados em uma coluna especifica

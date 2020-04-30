@@ -48,7 +48,7 @@ public class CalcularMedia extends AppCompatActivity {
         this.onClickListenter();
     }
 
-    private void onClickListenter(){
+    private void onClickListenter() {
 
         btnCalcular.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.Q)

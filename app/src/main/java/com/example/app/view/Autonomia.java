@@ -52,7 +52,7 @@ public class Autonomia extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    private void onClickListener(){
+    private void onClickListener() {
         btnVoltar.setOnClickListener(v -> controller.voltarAction());
 
         btnCalcular.setOnClickListener(v -> controller.salvarAction());

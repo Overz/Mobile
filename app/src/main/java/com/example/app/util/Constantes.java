@@ -12,10 +12,9 @@ public class Constantes {
     public static final Integer CODIGO_RETORNO_ERRO = 0;
 
     public static final String DB_PAIS_ID = "idPais";
-    public static final String DB_PAIS_NOME= "nomePais";
+    public static final String DB_PAIS_NOME = "nomePais";
     public static final String DB_PAIS_CAPITAL = "capitalPais";
     public static final String DB_PAIS_REGIAO = "regiaoPais";
-
 
     public static final String DB_REGIAO_ID = "idRegiao";
     public static final String DB_REGIAO_LOCALIDADE = "nomeRegiao";

@@ -1,13 +1,10 @@
 package com.example.app.controller;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.example.app.view.CadastroPais;
 import com.example.app.view.Cadastro_EstadosPaises;
 import com.example.app.view.MainActivity;
-
-import org.jetbrains.annotations.NotNull;
 
 public class MainController {
     private static boolean activityVisible;
@@ -29,26 +26,6 @@ public class MainController {
     }
 
     public MainController() {
-    }
-
-    public void recreate(@NotNull Activity activity) {
-        if (activity instanceof CadastroPais && isActivityVisible()) {
-            if (this.acitivityPaises.isFinishing()) {
-                if (this.acitivityEstados.getControl().deletarTeste()) {
-                    this.acitivityEstados.getControl().refreshData();
-                    System.out.println("Estados Atualizados");
-                    Log.i("RECREATE", "Estados Atualizados");
-                }
-            }
-        }
-        if (activity instanceof Cadastro_EstadosPaises && activityVisible) {
-            if (this.acitivityEstados.isFinishing()) {
-                this.acitivityPaises.getControl().refreshData();
-                System.out.println("Paises Atualizados");
-                Log.i("RECREATE", "Paises Atualizados");
-
-            }
-        }
     }
 
     static boolean isActivityVisible() {
