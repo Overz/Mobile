@@ -118,7 +118,7 @@ public class EstadoController {
                     this.e = adapterEstados.getItem(position);
                     if (this.e != null) {
                         AlertDialog.Builder alerta = new AlertDialog.Builder(activity);
-                        alerta.setTitle("Carro");
+                        alerta.setTitle("Estado");
                         alerta.setMessage(this.e.toString());
                         alerta.setNegativeButton("Fechar", (dialog, which) -> this.e = null);
                         alerta.setPositiveButton("Editar", (dialog, which) -> this.popularForm(this.e));
