@@ -121,9 +121,9 @@ public class RegiaoDAO extends DaoHelper<RegiaoVO> implements BaseDAO<RegiaoVO> 
     }
 
     @Override
-    public Integer inserirDadosEmColunas(String... String) {
+    public Integer inserirDadosEmColunas(String... string) {
         try {
-            return getDao().executeRaw("INSERT INTO " + String + " VALUES (" + String + ")");
+            return getDao().executeRaw("INSERT INTO " + string + " VALUES (" + string + ")");
         } catch (SQLException e) {
             System.out.println(e.getMessage() + "\n"
                     + e.getCause() + "\n"

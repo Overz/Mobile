@@ -9,12 +9,10 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.app.R;
-import com.example.app.controller.MainController;
 import com.example.app.controller.PaisController;
 
 public class CadastroPais extends AppCompatActivity {
 
-    private MainController mainController;
     private PaisController control;
 
     private EditText editNomePais, editCapital;
@@ -28,13 +26,11 @@ public class CadastroPais extends AppCompatActivity {
         setContentView(R.layout.activity_paises);
         this.initialize();
         control = new PaisController(this);
-        mainController = new MainController(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        MainController.activityResumed();
         control.refreshData();
     }
 
@@ -42,12 +38,10 @@ public class CadastroPais extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         this.control.refreshData();
-        MainController.activityResumed();
     }
 
     @Override
     protected void onPause() {
-        MainController.activityPaused();
         control.refreshData();
         super.onPause();
     }
@@ -55,7 +49,6 @@ public class CadastroPais extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        MainController.activityPaused();
         control.refreshData();
     }
 
