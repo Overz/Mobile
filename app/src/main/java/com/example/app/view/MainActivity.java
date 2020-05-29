@@ -12,7 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btnPaises_Main:
                 it = new Intent(this, Cadastro_EstadosPaises.class);
                 startActivity(it);
+                break;
         }
         System.gc();
     }
